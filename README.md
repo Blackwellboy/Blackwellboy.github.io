@@ -6,6 +6,24 @@ one `index.html` with inline CSS plus one image.
 
 Live at: https://blackwellboy.github.io/
 
+## Editing
+
+Everything is in `index.html`: the CSS lives in one `<style>` block at the top,
+the content below it. There is no build step, so an edit pushed to `main` is
+live within a minute or two.
+
+Two conventions worth keeping:
+
+- **Colour tokens carry their measured contrast ratio in a comment.** If you
+  change a colour, recompute the ratio against `--ground` and update the
+  comment. Nothing a reader sees as a sentence should sit below about 9:1.
+- **The accent is used for three things only:** measured values, link
+  underlines, and the bar beside a conditions line. Spending it anywhere else
+  costs it its meaning.
+
+Every figure on the page is re-derived from the raw data published in the two
+linked repos. If a study is updated upstream, re-check the matching line here.
+
 ## Custom domain later
 
 To point a custom domain (for example blackwellboy.ai) at this site without
