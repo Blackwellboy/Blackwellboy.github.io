@@ -37,6 +37,17 @@
   --rule:        #191c21;
   --rule-lit:    #2b3038;
 
+  /* Neon, sampled from the wordmark in the masthead rather than invented:
+     pure white core, halo measurably cool (blue above red at every radius),
+     falling off fast from r=6 to r=20 then trailing faintly to about r=50.
+     The shadow stack below mirrors that falloff. Static, never animated:
+     a flickering sign would undercut the point of the page. */
+  --neon:
+    0 0 2px  rgba(255, 255, 255, .95),
+    0 0 9px  rgba(226, 236, 255, .42),
+    0 0 24px rgba(198, 216, 255, .22),
+    0 0 52px rgba(170, 198, 255, .12);
+
   --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
   --mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
 
@@ -120,17 +131,23 @@ h1 {
 .fleet .scope { color: var(--muted); display: block; margin-top: var(--s2); }
 
 /* --- sections ------------------------------------------------------ */
+/* Section headings are the page's signposts, so they get the mark's own
+   light. Glow is reserved for this one tier: it means "structure", nothing
+   else on the page carries it. */
 section > h2 {
   margin: 0 0 var(--s5);
-  padding-bottom: .55rem;
+  padding-bottom: .9rem;
   border-bottom: 1px solid var(--rule-lit);
   font-family: var(--mono);
-  font-size: .8125rem;
+  /* floor kept above the 1.1875rem item titles so the tiers never collapse
+     into each other at narrow widths */
+  font-size: clamp(1.375rem, 1.15rem + .95vw, 1.5625rem);
   font-weight: 500;
-  line-height: 1.3;
+  line-height: 1.25;
   text-transform: uppercase;
-  letter-spacing: .08em;
-  color: var(--muted);
+  letter-spacing: .1em;
+  color: #fff;
+  text-shadow: var(--neon);
 }
 #work { margin-top: var(--s8); }
 
@@ -139,23 +156,17 @@ p + p { margin-top: var(--s4); }
 
 /* --- tools --------------------------------------------------------- */
 .tools { display: flex; flex-direction: column; gap: var(--s6); }
-.tool h3 {
-  margin: 0 0 var(--s2);
-  font-family: var(--mono);
-  font-size: 1.0625rem;
-  font-weight: 500;
-  line-height: 1.3;
-  color: var(--ink);
-}
-.tool p { color: var(--body); }
 
-/* --- worked example ------------------------------------------------ */
-.example h3 {
-  margin: 0 0 var(--s2);
+/* tier 2: item titles. one rule for all three lists so they cannot drift. */
+.tool h3,
+.example h3,
+.studies h3 {
+  margin: 0 0 var(--s3);
   font-family: var(--mono);
-  font-size: 1.0625rem;
+  font-size: 1.1875rem;
   font-weight: 500;
   line-height: 1.3;
+  letter-spacing: -.005em;
   color: var(--ink);
 }
 
@@ -167,14 +178,6 @@ p + p { margin-top: var(--s4); }
 }
 .studies > li + li { margin-top: var(--s5); }
 .studies > li:first-child { padding-top: 0; border-top: 0; }
-.studies h3 {
-  margin: 0 0 var(--s2);
-  font-family: var(--mono);
-  font-size: 1.0625rem;
-  font-weight: 500;
-  line-height: 1.3;
-  color: var(--ink);
-}
 /* :not(.cond) so this can never win over the conditions rule below,
    regardless of source order */
 .studies p:not(.cond) { font-size: 1.0625rem; }
