@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Blackwellboy - independent testing and deployment engineering for local AI models</title>
+<meta name="description" content="Independent testing and deployment engineering for local AI models. Reproducible findings, raw data attached, so you spend ten minutes instead of three days.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Blackwellboy">
+<meta property="og:description" content="Independent testing and deployment engineering for local AI models. Reproducible findings, raw data attached.">
+<meta property="og:url" content="https://blackwellboy.github.io/">
+<meta property="og:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
+<meta property="og:image:width" content="1774">
+<meta property="og:image:height" content="887">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Blackwellboy">
+<meta name="twitter:title" content="Blackwellboy">
+<meta name="twitter:description" content="Independent testing and deployment engineering for local AI models. Reproducible findings, raw data attached.">
+<meta name="twitter:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
+<style>
+:root {
+  --bg: #0d1013;
+  --panel: #14181d;
+  --text: #d6dbe0;
+  --dim: #8b949e;
+  --accent: #4fd1a5;
+  --rule: #232a31;
+  --mono: ui-monospace, "Cascadia Code", "SF Mono", Menlo, Consolas, monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  font-size: 16px;
+}
+main { max-width: 46rem; margin: 0 auto; padding: 0 1.25rem 4rem; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.hero { padding-top: 2rem; }
+.hero img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+}
+h1 {
+  font-size: 1.8rem;
+  letter-spacing: 0.04em;
+  margin-top: 1.5rem;
+  font-weight: 700;
+}
+.tagline { color: var(--text); font-size: 1.05rem; margin-top: 0.4rem; }
+.fleet {
+  font-family: var(--mono);
+  font-size: 0.82rem;
+  color: var(--dim);
+  margin-top: 0.9rem;
+  letter-spacing: 0.02em;
+}
+section { margin-top: 3rem; }
+h2 {
+  font-size: 0.82rem;
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  font-weight: 600;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.1rem;
+}
+p { margin-bottom: 0.9rem; }
+p:last-child { margin-bottom: 0; }
+.dim { color: var(--dim); }
+.tool { margin-bottom: 1.4rem; }
+.tool:last-child { margin-bottom: 0; }
+.tool .name { font-family: var(--mono); font-size: 0.95rem; font-weight: 600; }
+.tool p { margin-top: 0.3rem; margin-bottom: 0; color: var(--dim); }
+ul.work { list-style: none; }
+ul.work li {
+  margin-bottom: 1.1rem;
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--rule);
+}
+ul.work li:last-child { margin-bottom: 0; }
+ul.work .cond {
+  display: block;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--dim);
+  margin-top: 0.2rem;
+}
+.links { display: flex; flex-wrap: wrap; gap: 0.6rem 1.4rem; font-family: var(--mono); font-size: 0.88rem; }
+footer {
+  margin-top: 3.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-size: 0.78rem;
+  color: var(--dim);
+  font-family: var(--mono);
+}
+@media (min-width: 640px) {
+  body { font-size: 17px; }
+  h1 { font-size: 2.1rem; }
+}
+</style>
+</head>
+<body>
+<main>
+
+<header class="hero">
+  <img src="blackwellboy.jpg" alt="Blackwellboy" width="1774" height="887">
+  <h1>BLACKWELLBOY</h1>
+  <p class="tagline">Independent testing and deployment engineering for local AI models.</p>
+  <p class="fleet">8x DGX Spark &middot; 4x RTX 3090 &middot; 2x RTX 5090 &middot; M4 Mac Mini</p>
+</header>
+
+<section>
+  <h2>What this is for</h2>
+  <p>Most people do not have the hardware, or the days, to work out why a local model is misbehaving. Whether the problem is the model, the quant, the template, or the serving stack usually takes a fleet and a weekend to answer properly.</p>
+  <p>The work here is doing that crunching once and publishing the answer with the raw data attached, so the next person spends ten minutes instead of three days.</p>
+</section>
+
+<section>
+  <h2>Tools</h2>
+  <div class="tool">
+    <span class="name"><a href="https://github.com/Blackwellboy/model-serving-minefield">model-serving-minefield</a></span>
+    <p>A registry of serving and config bugs that produce confidently wrong measurements: chat templates, tool parsers, reasoning fields, quantization kernel paths, container toolchains, eval harnesses. 32 traps, each led by the symptom you would actually observe, with the check that catches it and the fix.</p>
+  </div>
+  <div class="tool">
+    <span class="name"><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/doctor">minefield-doctor</a></span>
+    <p>One stdlib-only Python file. Point it at your OpenAI-compatible endpoint and it diagnoses the endpoint against the registry. Read-only, no install, no dependencies.</p>
+  </div>
+  <div class="tool">
+    <span class="name"><a href="https://github.com/Blackwellboy/laguna-s21-lab/blob/main/LAGUNA_OPERATORS_GUIDE.md">Laguna operators guide</a></span>
+    <p>How to actually run Laguna S 2.1 in production: config, thinking control, tool format, known failure modes. Every figure in it re-derived from the raw logs before publication.</p>
+  </div>
+</section>
+
+<section>
+  <h2>Selected work</h2>
+  <ul class="work">
+    <li>
+      <a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/sweep">20-cell tuning sweep</a>: selected the production serving config by measurement; the winning cell reached 26.2 tok/s single-stream median and 61.65 tok/s aggregate at concurrency 4. Every losing cell is published.
+      <span class="cond">DFlash K=7, max-num-seqs=32; Hermes bench v1 short subset; NVFP4 on vLLM; TTFT 322 ms</span>
+    </li>
+    <li>
+      <a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/soak">12-hour production soak</a>: 3,096 HTTP-200 turns over 409 sessions with zero crashes; thinking fired on 3 turns (0.097%). Carried upstream in the offlabel guide as external validation.
+      <span class="cond">production profile K=7/seqs=32, max_tokens 8192, thinking requested on every turn</span>
+    </li>
+    <li>
+      <a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/gate-study">Thinking-gate study</a>: whether Laguna thinks is a persona-by-task conjunction, not a switch; summarization never fired (0/105) and a 10-rule persona block was the strongest suppressor (3/40). The same grid on Qwen 3.6 35B-A3B fired 400/400, so the suppression is Laguna-specific.
+      <span class="cond">450 logged turns, 10-condition grid, n=40 per condition, 0 HTTP errors</span>
+    </li>
+    <li>
+      <a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/pr10-replication">HumanEval+ replication</a>: the claimed thinking-ON accuracy gain does not replicate temperature-controlled; ON scored 89.84 vs OFF 90.85 on HumanEval+.
+      <span class="cond">984 requests, 164 problems x 2 arms x 3 seeds, 0 transport errors, evalplus scoring</span>
+    </li>
+    <li>
+      <a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/context-mass">Multi-turn reasoning-stripping mechanism</a>: clients that strip prior-turn reasoning from history silence thinking entirely; with history preserved it fired 10/10, stripped 0/10, in both depth cells.
+      <span class="cond">depth 10 and depth 20 conversations, max_tokens 8192, same prompts both arms</span>
+    </li>
+  </ul>
+</section>
+
+<section>
+  <h2>Collaboration</h2>
+  <p>Findings here are cross-cited with <a href="https://github.com/TheTom/offlabel">TheTom's offlabel</a> behavioral guide: the 12-hour soak is carried there as external validation (section 5d), and the thinking-gate grid is the basis of its rebuilt section 2 firing-gate analysis.</p>
+  <p>Contributors credited in the minefield registry include <a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/HALL_OF_FAME.md">@quantumleap68, @Defilan, @apollo-mg, @mrpmorris, TheTom, and eugr</a>.</p>
+</section>
+
+<section>
+  <h2>Available for</h2>
+  <p>Independent model and quant verification. Serving and deployment diagnosis. Inference performance work.</p>
+  <p class="dim">Contact via X DM.</p>
+</section>
+
+<section>
+  <h2>Links</h2>
+  <div class="links">
+    <a href="https://x.com/Blackwellboy">X @Blackwellboy</a>
+    <a href="https://github.com/Blackwellboy">GitHub</a>
+    <a href="https://github.com/Blackwellboy/laguna-s21-lab">laguna-s21-lab</a>
+    <a href="https://github.com/Blackwellboy/model-serving-minefield">model-serving-minefield</a>
+    <a href="https://github.com/sponsors/Blackwellboy">Sponsors</a>
+    <a href="https://buymeacoffee.com/blackwellboy">Buy Me a Coffee</a>
+    <a href="https://github.com/Blackwellboy/laguna-s21-lab#support-this-work">Other ways to support</a>
+  </div>
+</section>
+
+<footer>
+  Every number on this page is re-derived from the published raw data in the linked repos. If one does not check out, open an issue.
+</footer>
+
+</main>
+</body>
+</html>
