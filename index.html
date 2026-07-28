@@ -300,10 +300,12 @@ footer p + p { margin-top: var(--s3); }
 
     <p>I work in data centres on B200 and B300 class deployments: cabling and installation, commissioning and testing, then maintenance. Fibre splicing and fibre engineering. Racking the hardware, running and terminating the fibre, bringing it up and keeping it up, at scale.</p>
 
-    <p>The fleet here is the same work at a size I own outright, which is why the raw data goes up with the conclusions instead of being described second-hand.</p>
+    <p>I run the same class of work on my own cluster, which is why the raw data goes up with the conclusions instead of being described second-hand.</p>
 
     <h3 class="sh">The fleet</h3>
-    <p>Deliberately heterogeneous: DGX Sparks, RTX 5090s and 3090s, and Apple silicon. The mix is the instrument rather than the inventory. A trap that reproduces on one architecture and not another is only visible if you have both, and published findings here turn on exactly that. The name of the field a model streams its reasoning into turned out to be a property of the serving stack rather than of the model, which took four stacks disagreeing to establish. One entry in the registry is a negative: a cache-isolation flag that behaves as documented on one build and does not on two others, recorded with the same care as a positive, because the conditions are the finding.</p>
+    <p>A networked cluster of DGX Sparks running tensor-parallel pairs, alongside a multi-GPU workstation stack and Apple silicon, with enough aggregate memory to keep several large models resident at once.</p>
+
+    <p>The mix is the instrument rather than the inventory. A fault that reproduces on one architecture and not another is only visible if you have both, and several published findings turn on exactly that. The name of the field a model streams its reasoning into is a property of the serving stack rather than of the model, which took four stacks disagreeing to establish. One entry in the registry is a negative: a cache-isolation flag that behaves as documented on one build and does not on two others, recorded with the same care as a positive, because the conditions are the finding.</p>
 
     <h3 class="sh">Stacks measured first-hand</h3>
     <p>llama.cpp, MLX, Ollama and vLLM. Build and quant formats across those lanes include NVFP4, FP8, GGUF at several quantisation levels, and EXL3-tail builds. Model families include Laguna S 2.1, Qwen 3.5 and 3.6, DeepSeek V4, Gemma, MiniMax and a Mistral-family GGUF. Stacks I have not measured are marked as such in the registry rather than inferred.</p>
@@ -430,7 +432,7 @@ footer p + p { margin-top: var(--s3); }
 
   <section id="available">
     <h2>Available for</h2>
-    <p class="sub">Each of these points at work on this page that demonstrates it. No claim without a link.</p>
+    <p class="sub">What I take on. Where a study on this page demonstrates it, it is linked.</p>
 
     <div class="caps">
       <div class="cap">
@@ -454,7 +456,12 @@ footer p + p { margin-top: var(--s3); }
       <div class="cap">
         <h3>Long-duration production soaks</h3>
         <p>Running a model inside a real agent pipeline for as long as the question needs, and reporting drift, incidents and integrity behaviour rather than a throughput number.</p>
-        <p class="proof">Shown by the <a href="#work">12-hour soak</a>. Twelve hours is the published sample, not a limit.</p>
+        <p class="proof">Written up: the <a href="#work">12-hour soak</a>.</p>
+      </div>
+
+      <div class="cap">
+        <h3>Multi-node and tensor-parallel deployment</h3>
+        <p>Bringing up and running models across networked nodes as tensor-parallel pairs: the fabric underneath, the topology, the serving config on top of it, and the failure modes that only appear once a model spans more than one box.</p>
       </div>
 
       <div class="cap">
