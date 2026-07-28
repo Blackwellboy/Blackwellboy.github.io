@@ -57,14 +57,22 @@ jobs:
       - name: Check out the site
         uses: actions/checkout@v4
 
-      # Outside the workspace, so no registry file is ever mistaken for one
-      # belonging to this repo.
+      # The registry must end up OUTSIDE the workspace, so no registry file
+      # is ever mistaken for one belonging to this repo and so the
+      # `git status --porcelain index.html` below is never confused by a
+      # nested checkout. actions/checkout refuses to write outside the
+      # workspace, so it lands inside and is moved out in the next step. The
+      # first shape of this failed every run since it landed, with
+      # "Repository path is not under", and the page silently stayed stale.
       - name: Check out the registry the page describes
         uses: actions/checkout@v4
         with:
           repository: Blackwellboy/model-serving-minefield
-          path: ${{ runner.temp }}/registry
+          path: registry-src
           fetch-depth: 1
+
+      - name: Move the registry out of the workspace
+        run: mv registry-src "${{ runner.temp }}/registry"
 
       - uses: actions/setup-python@v5
         with:
