@@ -1,0 +1,103 @@
+name: build
+
+# index.html is GENERATED from index.template.html plus the registry tree.
+# Nobody types a trap count into HTML any more, which is the whole point: the
+# count went 42, 81, 90, 97 inside about a day, and three separate hand
+# corrections were each stale within hours.
+#
+# Why this shape rather than the alternatives:
+#
+#   Regenerate and commit, serving from the branch, is what this does. Pages
+#   keeps serving the branch exactly as before, so no repo setting changes and
+#   there is no deploy-time dependency that can fail closed and take the site
+#   down with it.
+#
+#   Deploying from an Action artifact instead would avoid committing a
+#   generated file, which is tidier, but it changes the Pages source from
+#   branch to Actions. That is a repository setting and it is the owner's to
+#   change, so it is written up as a recommendation rather than done here.
+#
+#   A network fetch of the registry at page load was never an option: the
+#   published page is static and has no JavaScript, and an earlier attempt
+#   that depended on fetching a repo failed for exactly this reason.
+#
+# The registry is public, so checking it out needs no token and no secret. If
+# it ever goes private this workflow breaks loudly at checkout rather than
+# rendering a stale page, which is the correct failure.
+#
+# No infinite loop: a push made with GITHUB_TOKEN does not trigger workflows.
+# If that ever changes, the second run renders identical bytes, finds nothing
+# to commit, and stops anyway.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # every six hours. The page can go stale without anyone touching this
+    # repo, because it is the registry that moves.
+    - cron: "23 */6 * * *"
+  workflow_dispatch:
+  # lets the registry notify this repo the moment it changes, if the owner
+  # later adds a dispatch step there. Nothing here depends on it existing.
+  repository_dispatch:
+    types: [registry-updated]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+
+      # Outside the workspace, so no registry file is ever mistaken for one
+      # belonging to this repo.
+      - name: Check out the registry the page describes
+        uses: actions/checkout@v4
+        with:
+          repository: Blackwellboy/model-serving-minefield
+          path: ${{ runner.temp }}/registry
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # On a PR nothing is pushed, so the job's job is to catch the one thing
+      # this design can still get wrong: somebody editing the generated
+      # index.html directly instead of the template. Their edit would be
+      # silently reverted by the next scheduled build, so fail here and say so.
+      - name: On a PR, check index.html matches a fresh render
+        if: github.event_name == 'pull_request'
+        run: |
+          if ! python3 build.py --registry "${{ runner.temp }}/registry" --check; then
+            echo "::error::index.html is generated. Edit index.template.html instead."
+            exit 1
+          fi
+
+      - name: Render index.html from the template and the registry tree
+        if: github.event_name != 'pull_request'
+        run: python3 build.py --registry "${{ runner.temp }}/registry"
+
+      - name: Commit only if the rendered bytes actually changed
+        if: github.event_name != 'pull_request'
+        run: |
+          if [ -z "$(git status --porcelain index.html)" ]; then
+            echo "index.html already matches the registry; nothing to commit."
+            exit 0
+          fi
+          REG_TIP="$(git -C "${{ runner.temp }}/registry" rev-parse --short HEAD)"
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # explicit path, never `git add -A`: a CRLF conversion has produced
+          # phantom diffs on files nobody edited in this repo before.
+          git add index.html
+          git commit -m "build: regenerate from registry ${REG_TIP}"
+          git push
