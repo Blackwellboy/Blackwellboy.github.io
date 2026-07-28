@@ -290,7 +290,7 @@ footer p + p { margin-top: var(--s3); }
       <div class="stat"><b>97</b><span>serving traps documented</span></div>
       <div class="stat"><b>9</b><span>failure categories</span></div>
       <div class="stat"><b>9</b><span>outside contributors credited</span></div>
-      <div class="stat"><b>11</b><span>serving stacks measured first-hand</span></div>
+      <div class="stat"><b>11</b><span>serving stacks covered</span></div>
     </div>
     <p class="counted-at">Every figure in that block is generated from the registry tree at build time, not typed in. Read at <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/0e876960e706cbe98049a88efbcafefffd3fcd00"><code>0e87696</code></a>, 2026-07-29. <code>find traps -mindepth 2 -name '*.md' | wc -l</code> reproduces the first one.</p>
   </div>
@@ -307,7 +307,7 @@ footer p + p { margin-top: var(--s3); }
 
     <p>The mix is the instrument rather than the inventory. A fault that reproduces on one architecture and not another is only visible if you have both, and several published findings turn on exactly that. The name of the field a model streams its reasoning into is a property of the serving stack rather than of the model, which took four stacks disagreeing to establish. One entry in the registry is a negative: a cache-isolation flag that behaves as documented on one build and does not on two others, recorded with the same care as a positive, because the conditions are the finding.</p>
 
-    <h3 class="sh">Stacks measured first-hand</h3>
+    <h3 class="sh">Serving stacks covered</h3>
     <p>hf-transformers, llama.cpp, lm-studio, MLX, Ollama, sglang, tabbyapi, tensorrt-llm, text-generation-inference, text-generation-webui and vLLM. Build and quant formats across those lanes include NVFP4, FP8, GGUF at several quantisation levels, and EXL3-tail builds. Model families include Laguna S 2.1, Qwen 3.5 and 3.6, DeepSeek V4, Gemma, MiniMax and a Mistral-family GGUF. Stacks I have not measured are marked as such in the registry rather than inferred.</p>
   </section>
 
