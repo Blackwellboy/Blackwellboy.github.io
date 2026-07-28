@@ -14,7 +14,7 @@ implements it rather than inventing a second one:
     never write a bare count, always write the count and the tip it was
     counted at, so a reader can tell in one command whether it still holds.
 
-So the page says "90 at 249ad34", not "90". That converts a perishable claim
+So the page says "97 at 6808c48", not "97". That converts a perishable claim
 into a dated measurement, which is the same thing every study card on the page
 already does by naming its build and its box. "90 at 249ad34" stays true after
 the tree grows to 200.
@@ -37,8 +37,8 @@ The note prints the refreshed numbers and the exact edit, so bringing the page
 forward is a one-line change with the new SHA beside it.
 
 Markers in the HTML:
-    <div class="stats" data-counted-at="249ad34">
-      <b data-check="minefield-entries">90</b>
+    <div class="stats" data-counted-at="6808c48">
+      <b data-check="minefield-entries">97</b>
 
 Counting rules, which are the part worth getting right:
   entries      files under traps/<category>/, EXCLUDING the legacy flat
@@ -172,9 +172,24 @@ def main():
     print("\nPASS: every stated count is correct for the commit the page names.")
 
     # Freshness note. Never fatal: the page is still true, just older.
-    git(args.registry, "fetch", "-q", "origin", "main")
+    #
+    # But never silent either. This fetch is the only part of the script that
+    # touches the network, and if it failed the script used to fall straight
+    # through and print nothing, which reads exactly like "the page is up to
+    # date". Drift going unmentioned is the failure this file exists to
+    # prevent, so an unusable fetch is announced as an unusable fetch.
+    fetched = git(args.registry, "fetch", "-q", "origin", "main")
     tip = git(args.registry, "rev-parse", "--short", "FETCH_HEAD").stdout.strip()
-    if tip and not tip.startswith(sha[:7]) and not sha.startswith(tip):
+    if fetched.returncode != 0 or not tip:
+        print("\nNOTE: could not reach origin to check whether the registry has")
+        print("      moved past %s, so freshness is UNKNOWN, not confirmed." % sha)
+        err = (fetched.stderr or "").strip().splitlines()
+        if err:
+            print("      git said: %s" % err[-1])
+        print("      Every stated count above still checks out against the")
+        print("      commit the page names; that part needs no network.")
+        return 0
+    if not tip.startswith(sha[:7]) and not sha.startswith(tip):
         if ensure_commit(args.registry, tip):
             print("\nNOTE: the registry has moved on. The page is not wrong, it is")
             print("      describing %s. Current tip is %s:" % (sha, tip))
