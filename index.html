@@ -290,9 +290,9 @@ footer p + p { margin-top: var(--s3); }
       <div class="stat"><b>97</b><span>serving traps documented</span></div>
       <div class="stat"><b>9</b><span>failure categories</span></div>
       <div class="stat"><b>9</b><span>outside contributors credited</span></div>
-      <div class="stat"><b>4</b><span>serving stacks measured first-hand</span></div>
+      <div class="stat"><b>11</b><span>serving stacks measured first-hand</span></div>
     </div>
-    <p class="counted-at">Every figure in that block is generated from the registry tree at build time, not typed in. Read at <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/6808c488ee5fd2c14414dabd1b207b50c4e8a207"><code>6808c48</code></a>, 2026-07-28. <code>find traps -mindepth 2 -name '*.md' | wc -l</code> reproduces the first one.</p>
+    <p class="counted-at">Every figure in that block is generated from the registry tree at build time, not typed in. Read at <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/0e876960e706cbe98049a88efbcafefffd3fcd00"><code>0e87696</code></a>, 2026-07-29. <code>find traps -mindepth 2 -name '*.md' | wc -l</code> reproduces the first one.</p>
   </div>
 
   <section id="about">
@@ -308,7 +308,7 @@ footer p + p { margin-top: var(--s3); }
     <p>The mix is the instrument rather than the inventory. A fault that reproduces on one architecture and not another is only visible if you have both, and several published findings turn on exactly that. The name of the field a model streams its reasoning into is a property of the serving stack rather than of the model, which took four stacks disagreeing to establish. One entry in the registry is a negative: a cache-isolation flag that behaves as documented on one build and does not on two others, recorded with the same care as a positive, because the conditions are the finding.</p>
 
     <h3 class="sh">Stacks measured first-hand</h3>
-    <p>llama.cpp, MLX, Ollama and vLLM. Build and quant formats across those lanes include NVFP4, FP8, GGUF at several quantisation levels, and EXL3-tail builds. Model families include Laguna S 2.1, Qwen 3.5 and 3.6, DeepSeek V4, Gemma, MiniMax and a Mistral-family GGUF. Stacks I have not measured are marked as such in the registry rather than inferred.</p>
+    <p>hf-transformers, llama.cpp, lm-studio, MLX, Ollama, sglang, tabbyapi, tensorrt-llm, text-generation-inference, text-generation-webui and vLLM. Build and quant formats across those lanes include NVFP4, FP8, GGUF at several quantisation levels, and EXL3-tail builds. Model families include Laguna S 2.1, Qwen 3.5 and 3.6, DeepSeek V4, Gemma, MiniMax and a Mistral-family GGUF. Stacks I have not measured are marked as such in the registry rather than inferred.</p>
   </section>
 
   <section id="work">
@@ -367,7 +367,7 @@ footer p + p { margin-top: var(--s3); }
 
       <li><b>I narrowed my own strongest-sounding claim after somebody else's larger sample.</b> "The binary thinking gate is Laguna's own behaviour" is now scoped to the builds I measured, because apollo-mg ran the same model on a different quant and runtime at n=492 and saw no gate closure. His number bounds mine, and it sits inside the card it constrains rather than in a footnote.</li>
 
-      <li><b>Losing cells, blocked items and not-testable items are published.</b> All 20 sweep cells including the 19 that lost, and a <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/mining">mining area</a> holding 12 write-ups of candidates that did not reproduce, could not be tested, or are specification only. Several carry confirm and refute criteria written down before the run, so the result cannot be reinterpreted afterwards.</li>
+      <li><b>Losing cells, blocked items and not-testable items are published.</b> All 20 sweep cells including the 19 that lost, and a <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/mining">mining area</a> holding 13 write-ups of candidates that did not reproduce, could not be tested, or are specification only. Several carry confirm and refute criteria written down before the run, so the result cannot be reinterpreted afterwards.</li>
 
       <li><b>Corrections are posted upstream too, including to my own work.</b> When a reader found that I had stated a reasoning field name as a property of the model when it is a property of the serving stack, the correction went into the lab repo, the registry entry and the upstream thread, dated, with the counterexamples named.</li>
     </ul>
@@ -390,7 +390,7 @@ footer p + p { margin-top: var(--s3); }
 
       <div class="card">
         <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/playbooks">Playbooks and stack pages</a></h3>
-        <p>5 ordered checklists for the job you actually arrived with, rather than the symptom you can name: publishing an A/B, thinking dying on turn two, porting a harness to a new server, long context looking broken, reading a soak. Every step names the entry it guards against and the check to run. Alongside them, <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/stacks">4 stack pages</a> covering llama.cpp, MLX, Ollama and vLLM, each listing the entries that bite hardest there and the three checks to run first.</p>
+        <p>5 ordered checklists for the job you actually arrived with, rather than the symptom you can name: publishing an A/B, thinking dying on turn two, porting a harness to a new server, long context looking broken, reading a soak. Every step names the entry it guards against and the check to run. Alongside them, <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/stacks">11 stack pages</a> covering hf-transformers, llama.cpp, lm-studio, MLX, Ollama, sglang, tabbyapi, tensorrt-llm, text-generation-inference, text-generation-webui and vLLM, each listing the entries that bite hardest there and the three checks to run first.</p>
       </div>
 
       <div class="card">
