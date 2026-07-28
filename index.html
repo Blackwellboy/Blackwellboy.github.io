@@ -292,7 +292,7 @@ footer p + p { margin-top: var(--s3); }
       <div class="stat"><b>10</b><span>outside contributors credited</span></div>
       <div class="stat"><b>5</b><span>serving stacks measured here</span></div>
     </div>
-    <p class="counted-at">Every figure in that block is generated from the registry tree at build time, not typed in. Read at <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/31699204b45e612ca27e9ea470419932de9106a3"><code>3169920</code></a>, 2026-07-29. <code>find traps -mindepth 2 -name '*.md' | wc -l</code> reproduces the first one.</p>
+    <p class="counted-at">Every figure in that block is generated from the registry tree at build time, not typed in. Read at <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/447cc072e1e2e3e31715a6b184e03fea04be197a"><code>447cc07</code></a>, 2026-07-29. <code>find traps -mindepth 2 -name '*.md' | wc -l</code> reproduces the first one.</p>
   </div>
 
   <section id="about">
@@ -350,7 +350,7 @@ footer p + p { margin-top: var(--s3); }
       <div class="card">
         <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/soak">12-hour production soak</a></h3>
         <p><span class="m">3,096</span> HTTP-200 turns across <span class="m">409</span> sessions with zero crashes and zero restarts, inside a real agent pipeline rather than a benchmark loop. Thinking fired on <span class="m">3</span> of those turns on a run that requested it every single turn, which is the anomaly the reasoning-stripping study above explains. Twelve hours is the published sample, not a ceiling.</p>
-        <p class="cond"><b>Conditions</b>One 12-hour run, production profile K=7 and max-num-seqs=32, max_tokens 8192, thinking requested on every turn. 3,099 turns logged, 3,096 returned HTTP 200. NVFP4 rev 0761412 under vLLM 0.25.1 on one GB10. Carried in TheTom's offlabel guide as external validation. The per-turn log was withdrawn on 2026-07-28 after internal identifiers were found in its model-generated previews, so the session, incident and service logs are the published raw for these figures and the firing count rests on the soak report.</p>
+        <p class="cond"><b>Conditions</b>One 12-hour run, production profile K=7 and max-num-seqs=32, max_tokens 8192, thinking requested on every turn. 3,099 turns logged, 3,096 returned HTTP 200. NVFP4 rev 0761412 under vLLM 0.25.1 on one GB10. Carried in TheTom's offlabel guide as external validation. The per-turn log is published, at lab tip <code>a009a7f</code>: 3,099 rows, structure preserving, with the model-generated free-text previews stripped because they carried internal identifiers and the structural counters left intact. It carries 410 distinct session ids against 409 completed sessions, because three rows have a null HTTP status, which is the run being cut mid-session rather than a missing session.</p>
       </div>
 
     </div>
@@ -395,7 +395,7 @@ footer p + p { margin-top: var(--s3); }
 
       <div class="card">
         <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/doctor">minefield-doctor</a></h3>
-        <p>One stdlib-only Python file. Point it at your OpenAI-compatible endpoint and it runs <span class="m">18</span> read-only checks in under a minute. Its own README is blunt about the limits: read it as a thinking-stack preflight rather than a doctor, because those checks cluster on reasoning fields, templates, thinking control, tool parsing and ceilings, and say nothing about quantisation kernel paths, container toolchains, memory, MoE routing, harness confounds or long context. A clean run is not a clean bill of health, and anything it could not check is reported as not checked, with the reason.</p>
+        <p>One stdlib-only Python file. Point it at your OpenAI-compatible endpoint and it runs <span class="m">19</span> read-only checks in under a minute. Its own README is blunt about the limits: read it as a thinking-stack preflight rather than a doctor, because those checks cluster on reasoning fields, templates, thinking control, tool parsing and ceilings, and say nothing about quantisation kernel paths, container toolchains, memory, MoE routing, harness confounds or long context. A clean run is not a clean bill of health, and anything it could not check is reported as not checked, with the reason.</p>
       </div>
 
       <div class="card">
@@ -494,7 +494,7 @@ footer p + p { margin-top: var(--s3); }
 
 <footer>
   <p>The counts on this page are generated from the registry tree at build time, so they cannot go stale without the build going stale with them. The study figures are not generated: each is a measurement from one run at one revision, and each carries its conditions instead.</p>
-  <p>Every study figure is re-derived from raw data published in the linked directory, with one stated exception: the soak's per-turn log was withdrawn on 2026-07-28 for sanitizer reasons, so its firing count rests on the soak report. That exception is named on the card rather than left to be found.</p>
+  <p>Every study figure is re-derived from raw data published in the linked directory. The soak's per-turn log was withdrawn for a day on sanitizer grounds and is published again as of lab tip <code>a009a7f</code>, scrubbed of free-text previews and intact in its counters, so there is no longer an exception to name.</p>
   <p>If a number here does not check out, open an issue on either repo and it gets fixed in place, with a date.</p>
 </footer>
 

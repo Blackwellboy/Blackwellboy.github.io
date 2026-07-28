@@ -177,13 +177,20 @@ def core_count(reg):
 
 
 def doctor_checks(reg):
-    """The doctor states its own check count in prose; parse it rather than
-    counting functions, so the page cannot disagree with the tool's own README."""
-    t = read(os.path.join(reg, "doctor", "README.md"))
-    m = re.search(r"Its\s+(\d+)\s+checks", t)
+    """Counted from TRAP_PATHS in the tool itself, not from its README prose.
+
+    This used to parse "Its N checks" out of doctor/README.md. That sentence
+    said 18 while the same file said 19 further down and TRAP_PATHS held 19,
+    so this page published 18: a stale sentence in one repo became a wrong
+    number on a public site in another. The registry now also fails a mismatch
+    between that sentence and the code, but the site no longer depends on the
+    sentence at all.
+    """
+    t = read(os.path.join(reg, "doctor", "minefield_doctor.py"))
+    m = re.search(r"TRAP_PATHS\s*=\s*\{(.*?)\n\}", t, re.S)
     if not m:
-        raise ValueError("could not find 'Its N checks' in doctor/README.md")
-    return m.group(1)
+        raise ValueError("could not find TRAP_PATHS in minefield_doctor.py")
+    return str(len(re.findall(r'"\d{2,}"\s*:', m.group(1))))
 
 
 def _hof_tables(reg):
