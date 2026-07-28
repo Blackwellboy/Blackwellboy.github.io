@@ -117,12 +117,54 @@ def stacks(reg):
     return str(len(_md_count(reg, "stacks")))
 
 
-def stack_names(reg):
-    pretty = {"llama-cpp": "llama.cpp", "mlx": "MLX", "ollama": "Ollama", "vllm": "vLLM"}
-    names = [pretty.get(f[:-3], f[:-3]) for f in _md_count(reg, "stacks")]
+_STACK_PRETTY = {"llama-cpp": "llama.cpp", "mlx": "MLX", "ollama": "Ollama",
+                 "vllm": "vLLM"}
+MEASURED_HERE_RE = re.compile(r"^\*\*Measured here:\*\* (yes|no)\b", re.M)
+
+
+def _prose_list(names):
     if len(names) > 1:
         return ", ".join(names[:-1]) + " and " + names[-1]
     return names[0]
+
+
+def stack_names(reg):
+    names = [_STACK_PRETTY.get(f[:-3], f[:-3]) for f in _md_count(reg, "stacks")]
+    return _prose_list(names)
+
+
+def _firsthand_stacks(reg):
+    """Stack pages whose own marker says we measured on that stack.
+
+    Read from an explicit marker, never inferred from prose. The first render
+    of this page put the stack-PAGE count into a label reading "measured
+    first-hand" and published 11, where the true number is 5: six of the pages
+    are about stacks nobody here has touched. They said so in their own words,
+    in two different phrasings, so no regex could separate the sets and the
+    fix at the time was to weaken the label to "covered". The registry now
+    declares it per page, and reference_integrity fails a stack page that does
+    not carry the marker, so this raises rather than guessing.
+    """
+    out = []
+    for fn in _md_count(reg, "stacks"):
+        body = read(os.path.join(reg, "stacks", fn))
+        m = MEASURED_HERE_RE.search(body)
+        if m is None:
+            raise ValueError(
+                "stacks/%s has no '**Measured here:**' marker. Refusing to "
+                "render a first-hand count that would be a guess." % fn)
+        if m.group(1) == "yes":
+            out.append(fn)
+    return out
+
+
+def stacks_firsthand(reg):
+    return str(len(_firsthand_stacks(reg)))
+
+
+def stack_firsthand_names(reg):
+    return _prose_list([_STACK_PRETTY.get(f[:-3], f[:-3])
+                        for f in _firsthand_stacks(reg)])
 
 
 def core_count(reg):
@@ -199,6 +241,8 @@ TOKENS = {
     "REG_PLAYBOOKS": playbooks,
     "REG_STACKS": stacks,
     "REG_STACK_NAMES": stack_names,
+    "REG_STACKS_FIRSTHAND": stacks_firsthand,
+    "REG_STACK_FIRSTHAND_NAMES": stack_firsthand_names,
     "REG_CORE": core_count,
     "DOCTOR_CHECKS": doctor_checks,
     "CONTRIBUTORS": contributors,

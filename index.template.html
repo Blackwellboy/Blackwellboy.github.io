@@ -290,7 +290,7 @@ footer p + p { margin-top: var(--s3); }
       <div class="stat"><b>{{REG_ENTRIES}}</b><span>serving traps documented</span></div>
       <div class="stat"><b>{{REG_CATEGORIES}}</b><span>failure categories</span></div>
       <div class="stat"><b>{{CONTRIBUTORS}}</b><span>outside contributors credited</span></div>
-      <div class="stat"><b>{{REG_STACKS}}</b><span>serving stacks covered</span></div>
+      <div class="stat"><b>{{REG_STACKS_FIRSTHAND}}</b><span>serving stacks measured here</span></div>
     </div>
     <p class="counted-at">Every figure in that block is generated from the registry tree at build time, not typed in. Read at <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/{{REG_TIP_FULL}}"><code>{{REG_TIP}}</code></a>, {{REG_TIP_DATE}}. <code>find traps -mindepth 2 -name '*.md' | wc -l</code> reproduces the first one.</p>
   </div>
@@ -307,8 +307,8 @@ footer p + p { margin-top: var(--s3); }
 
     <p>The mix is the instrument rather than the inventory. A fault that reproduces on one architecture and not another is only visible if you have both, and several published findings turn on exactly that. The name of the field a model streams its reasoning into is a property of the serving stack rather than of the model, which took four stacks disagreeing to establish. One entry in the registry is a negative: a cache-isolation flag that behaves as documented on one build and does not on two others, recorded with the same care as a positive, because the conditions are the finding.</p>
 
-    <h3 class="sh">Serving stacks covered</h3>
-    <p>{{REG_STACK_NAMES}}. Build and quant formats across those lanes include NVFP4, FP8, GGUF at several quantisation levels, and EXL3-tail builds. Model families include Laguna S 2.1, Qwen 3.5 and 3.6, DeepSeek V4, Gemma, MiniMax and a Mistral-family GGUF. Stacks I have not measured are marked as such in the registry rather than inferred.</p>
+    <h3 class="sh">Serving stacks</h3>
+    <p>Measured first-hand on {{REG_STACK_FIRSTHAND_NAMES}}. {{REG_STACKS}} stack pages exist in total; the rest are stacks I have not measured, and each page says so in its own first line. Build and quant formats across those lanes include NVFP4, FP8, GGUF at several quantisation levels, and EXL3-tail builds. Model families include Laguna S 2.1, Qwen 3.5 and 3.6, DeepSeek V4, Gemma, MiniMax and a Mistral-family GGUF. Stacks I have not measured are marked as such in the registry rather than inferred.</p>
   </section>
 
   <section id="work">
