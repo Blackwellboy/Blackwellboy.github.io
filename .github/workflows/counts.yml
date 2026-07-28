@@ -1,0 +1,57 @@
+name: counts
+
+# The site quotes figures describing a DIFFERENT repository: how many entries
+# the registry holds, how many categories, how many outside contributors are
+# credited. That repository moves fast enough that its own integrity README
+# records the rule this job enforces: never write a bare count, always write
+# the count and the tip it was counted at.
+#
+# So the page says "90 at 249ad34". This job checks that figure against the
+# tree AT THAT COMMIT, which makes the check permanent: a page written when
+# the count was 42 still passes today, because it said 42 at the commit where
+# 42 was true.
+#
+# It FAILS only on a real error: a stated count that is wrong for the commit
+# the page names, or a count with no commit beside it at all.
+#
+# It does NOT fail when the registry moves ahead. The page is still true, just
+# older, and the reader was told which commit. Going red because somebody
+# pushed to another repository would make this job habitually red, and a
+# habitually red check teaches people to click through it. It prints a note
+# with the refreshed numbers and the one-line edit instead.
+#
+# The daily schedule exists because the page can go out of date without anyone
+# touching the page: the registry is what moves.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  counts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+
+      # fetch-depth 0: the page may name a commit older than a shallow clone
+      # reaches, and resolving it is the whole point of the check.
+      #
+      # Checked out to RUNNER_TEMP, outside the workspace, so no registry file
+      # is ever mistaken for one belonging to this repo.
+      - name: Check out the registry it describes
+        uses: actions/checkout@v4
+        with:
+          repository: Blackwellboy/model-serving-minefield
+          path: ${{ runner.temp }}/registry
+          fetch-depth: 0
+
+      - name: Verify every stated count against the commit the page names
+        run: python3 check_counts.py --registry "${{ runner.temp }}/registry"
