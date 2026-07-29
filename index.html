@@ -287,12 +287,12 @@ footer p + p { margin-top: var(--s3); }
     <p class="lede">I measure what serving stacks actually do, publish the answer with its conditions and its raw data, and publish the results that went against me as loudly as the ones that did not.</p>
 
     <div class="stats">
-      <div class="stat"><b>103</b><span>serving traps documented</span></div>
+      <div class="stat"><b>107</b><span>serving traps documented</span></div>
       <div class="stat"><b>9</b><span>failure categories</span></div>
       <div class="stat"><b>10</b><span>outside contributors credited</span></div>
       <div class="stat"><b>5</b><span>serving stacks measured here</span></div>
     </div>
-    <p class="counted-at">Every figure in that block is generated from the registry tree at build time, not typed in. Read at <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/ecef0afaccbd814c330727d20b97499de8158353"><code>ecef0af</code></a>, 2026-07-29. <code>find traps -mindepth 2 -name '*.md' | wc -l</code> reproduces the first one.</p>
+    <p class="counted-at">Every figure in that block is generated from the registry tree at build time, not typed in. Read at <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/e93e23a8ad89e17d3b9888f514c51a92c012ac6d"><code>e93e23a</code></a>, 2026-07-29. <code>find traps -mindepth 2 -name '*.md' | wc -l</code> reproduces the first one.</p>
   </div>
 
   <section id="about">
@@ -367,7 +367,7 @@ footer p + p { margin-top: var(--s3); }
 
       <li><b>I narrowed my own strongest-sounding claim after somebody else's larger sample.</b> "The binary thinking gate is Laguna's own behaviour" is now scoped to the builds I measured, because apollo-mg ran the same model on a different quant and runtime at n=492 and saw no gate closure. His number bounds mine, and it sits inside the card it constrains rather than in a footnote.</li>
 
-      <li><b>Losing cells, blocked items and not-testable items are published.</b> All 20 sweep cells including the 19 that lost, and a <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/mining">mining area</a> holding 19 write-ups of candidates that did not reproduce, could not be tested, or are specification only. Several carry confirm and refute criteria written down before the run, so the result cannot be reinterpreted afterwards.</li>
+      <li><b>Losing cells, blocked items and not-testable items are published.</b> All 20 sweep cells including the 19 that lost, and a <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/mining">mining area</a> holding 22 write-ups of candidates that did not reproduce, could not be tested, or are specification only. Several carry confirm and refute criteria written down before the run, so the result cannot be reinterpreted afterwards.</li>
 
       <li><b>Corrections are posted upstream too, including to my own work.</b> When a reader found that I had stated a reasoning field name as a property of the model when it is a property of the serving stack, the correction went into the lab repo, the registry entry and the upstream thread, dated, with the counterexamples named.</li>
     </ul>
@@ -380,12 +380,12 @@ footer p + p { margin-top: var(--s3); }
     <div class="cards">
       <div class="card">
         <h3><a href="https://github.com/Blackwellboy/model-serving-minefield">model-serving-minefield</a></h3>
-        <p>A registry of serving and config bugs that produce confidently wrong measurements. <span class="m">103</span> entries across <span class="m">9</span> categories: evaluation, memory, quantization, reasoning, routing, runtime, template, tools, versioning. Each entry leads with the symptom you would actually observe, then the mechanism, the check that catches it, and the fix, and each is marked reproduced-here, reported-by-others, or under test.</p>
+        <p>A registry of serving and config bugs that produce confidently wrong measurements. <span class="m">107</span> entries across <span class="m">9</span> categories: evaluation, memory, quantization, reasoning, routing, runtime, template, tools, versioning. Each entry leads with the symptom you would actually observe, then the mechanism, the check that catches it, and the fix, and each is marked reproduced-here, reported-by-others, or under test.</p>
       </div>
 
       <div class="card">
         <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/CORE.md">The Core 12</a></h3>
-        <p>Reading 103 entries is nobody's plan for the evening. The Core tier is the 12 chosen on evidence of what has actually cost people time: the symptom looks like a property of the model, the check is cheap, and it has already bitten more than one person or more than one stack. Everything else is marked Extended, which means specific rather than lesser.</p>
+        <p>Reading 107 entries is nobody's plan for the evening. The Core tier is the 12 chosen on evidence of what has actually cost people time: the symptom looks like a property of the model, the check is cheap, and it has already bitten more than one person or more than one stack. Everything else is marked Extended, which means specific rather than lesser.</p>
       </div>
 
       <div class="card">
