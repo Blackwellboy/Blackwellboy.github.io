@@ -34,9 +34,20 @@ on:
     branches: [main]
   pull_request:
   schedule:
-    # every six hours. The page can go stale without anyone touching this
-    # repo, because it is the registry that moves.
-    - cron: "23 */6 * * *"
+    # Every 15 minutes, not every six hours.
+    #
+    # The registry is what moves; this page describes it. The six-hour cadence
+    # meant the page could legitimately describe a tree six hours old, which
+    # made "is the site stale?" unanswerable: a red staleness check would just
+    # have meant "pushed recently".
+    #
+    # The proper fix is the registry telling us the moment it changes. Its
+    # workflow now has that dispatch step, but it needs a cross-repo PAT that
+    # does not exist yet, so it prints INACTIVE and this cron is what actually
+    # closes the window. Tighten this to hourly again once the dispatch is
+    # live. Note GitHub delays scheduled runs under load, so 15 minutes is a
+    # floor and not a promise.
+    - cron: "*/15 * * * *"
   workflow_dispatch:
   # lets the registry notify this repo the moment it changes, if the owner
   # later adds a dispatch step there. Nothing here depends on it existing.
