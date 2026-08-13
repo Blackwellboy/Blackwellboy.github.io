@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corrections — Blackwellboy</title>
+<meta name="description" content="Corrections and retractions. Evidence that the checking is real.">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Blackwellboy">
+<meta property="og:title" content="Corrections — Blackwellboy">
+<meta property="og:description" content="Corrections and retractions. Evidence that the checking is real.">
+<meta property="og:url" content="https://blackwellboy.github.io/corrections.html">
+<meta property="og:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
+<meta property="og:image:width" content="1774">
+<meta property="og:image:height" content="887">
+<meta property="og:image:alt" content="Blackwellboy">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Blackwellboy">
+<meta name="twitter:title" content="Corrections — Blackwellboy">
+<meta name="twitter:description" content="Corrections and retractions. Evidence that the checking is real.">
+<meta name="twitter:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
+<link rel="canonical" href="https://blackwellboy.github.io/corrections.html">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<nav class="nav" aria-label="Primary">
+  <div class="nav-in">
+    <a href="/#top" class="brand">BLACKWELLBOY</a>
+    <a href="/about.html">About</a>
+    <a href="/work.html">Work</a>
+    <a href="/corrections.html">Corrections</a>
+    <a href="/tools.html">Tools</a>
+    <a href="/#available">Available for</a>
+    <a href="/#contact">Contact</a>
+    <a href="https://github.com/Blackwellboy" class="ext">GitHub</a>
+    <a href="https://x.com/Blackwellboy" class="ext">X</a>
+  </div>
+</nav>
+
+<main>
+  <section id="corrections">
+    <h2>What I got wrong</h2>
+    <p class="sub">A result you cannot check is worth nothing, and the fastest way to show the checking is real is to show it catching me. This section is not an apology, it is the evidence that the rest of the page is load-bearing.</p>
+
+    <ul class="plain">
+      <li><b>I retracted my own headline finding within days of publishing it.</b> The gate study reported median thinking tokens of 3,536 on a bare prompt against 282 under the heaviest agent prompt, and I read that as prompt dose shortening reasoning. A dedicated 200-turn grid running all five arms interleaved inside one session found depth among fired turns statistically flat, all pairwise p at or above 0.13, with the arm carrying tool schemas holding the highest median. The medians were real measurements; the causal reading was a cross-run artefact. What actually moves depth is task composition and truncation at the tool-call boundary. Retracted in place, with dates, in <a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/c7-depth-collapse">c7-depth-collapse</a>.</li>
+
+      <li><b>I published a refutation of a hypothesis I expected to confirm.</b> The identity-prefix study above was run to verify a community finding, and it came out against it. It shipped with the losing cells intact.</li>
+
+      <li><b>I narrowed my own strongest-sounding claim after somebody else's larger sample.</b> "The binary thinking gate is Laguna's own behaviour" is now scoped to the builds I measured, because apollo-mg ran the same model on a different quant and runtime at n=492 and saw no gate closure. His number bounds mine, and it sits inside the card it constrains rather than in a footnote.</li>
+
+      <li><b>Losing cells, blocked items and not-testable items are published.</b> All 20 sweep cells including the 19 that lost, and a <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/mining">mining area</a> holding {{OPEN_QUESTIONS}} write-ups of candidates that did not reproduce, could not be tested, or are specification only. Several carry confirm and refute criteria written down before the run, so the result cannot be reinterpreted afterwards.</li>
+
+      <li><b>Corrections are posted upstream too, including to my own work.</b> When a reader found that I had stated a reasoning field name as a property of the model when it is a property of the serving stack, the correction went into the lab repo, the registry entry and the upstream thread, dated, with the counterexamples named.</li>
+    </ul>
+  </section>
+</main>
+
+<footer>
+  <p>The counts on this site are generated from the registry tree at build time, so they cannot go stale without the build going stale with them. Study figures are not generated: each is a measurement from one run at one revision, and each carries its conditions instead.</p>
+  <p>If a number here does not check out, open an issue on either repo and it gets fixed in place, with a date.</p>
+</footer>
+
+</body>
+</html>
