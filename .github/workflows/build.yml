@@ -93,23 +93,24 @@ jobs:
       # this design can still get wrong: somebody editing the generated
       # index.html directly instead of the template. Their edit would be
       # silently reverted by the next scheduled build, so fail here and say so.
-      - name: On a PR, check index.html matches a fresh render
+      - name: On a PR, check generated pages match fresh renders
         if: github.event_name == 'pull_request'
         run: |
-          if ! python3 build.py --registry "${{ runner.temp }}/registry" --check; then
-            echo "::error::index.html is generated. Edit index.template.html instead."
+          if ! python3 build.py --registry "${{ runner.temp }}/registry" --all --check; then
+            echo "::error::One or more GENERATED .html files are stale. Edit the corresponding *.template.html instead."
             exit 1
           fi
 
-      - name: Render index.html from the template and the registry tree
+      - name: Render pages from templates and the registry tree
         if: github.event_name != 'pull_request'
-        run: python3 build.py --registry "${{ runner.temp }}/registry"
+        run: python3 build.py --registry "${{ runner.temp }}/registry" --all
 
-      - name: Commit only if the rendered bytes actually changed
+      - name: Commit only if rendered bytes actually changed
         if: github.event_name != 'pull_request'
         run: |
-          if [ -z "$(git status --porcelain index.html)" ]; then
-            echo "index.html already matches the registry; nothing to commit."
+          CHANGED_HTML="$(git status --porcelain -- '*.html' | awk '{print $2}')"
+          if [ -z "$CHANGED_HTML" ]; then
+            echo "All generated pages already match the registry; nothing to commit."
             exit 0
           fi
           REG_TIP="$(git -C "${{ runner.temp }}/registry" rev-parse --short HEAD)"
@@ -117,6 +118,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # explicit path, never `git add -A`: a CRLF conversion has produced
           # phantom diffs on files nobody edited in this repo before.
-          git add index.html
+          git add $CHANGED_HTML
           git commit -m "build: regenerate from registry ${REG_TIP}"
           git push
