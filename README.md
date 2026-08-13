@@ -1,28 +1,40 @@
 # blackwellboy.github.io
 
 Single-page site for the Blackwellboy identity, served by GitHub Pages from
-the `main` branch of this repo. No build step, no framework, no external JS:
-one `index.html` with inline CSS plus one image.
+the `main` branch of this repo. No framework, no external JS.
 
 Live at: https://blackwellboy.github.io/
 
 ## Editing
 
-Everything is in `index.html`: the CSS lives in one `<style>` block at the top,
-the content below it. There is no build step, so an edit pushed to `main` is
-live within a minute or two.
+Edit `index.template.html` only. `index.html` is generated.
+
+- `build.py` renders `index.html` from the template by substituting
+  `{{REG_*}}` tokens derived from a checked‑out copy of
+  `Blackwellboy/model-serving-minefield`.
+- On pull requests, CI runs `python3 build.py --check` against a fresh
+  registry checkout and fails if `index.html` was hand‑edited.
+- On push and on a schedule, `.github/workflows/build.yml` regenerates
+  `index.html` and commits only when the rendered bytes actually change.
+  A human edit to `index.html` will be reverted by the next scheduled build.
+
+Optional local render:
+
+- `python3 build.py --registry /path/to/model-serving-minefield`
+- `python3 build.py --registry /path/to/model-serving-minefield --check`
 
 Two conventions worth keeping:
 
 - **Colour tokens carry their measured contrast ratio in a comment.** If you
   change a colour, recompute the ratio against `--ground` and update the
-  comment. Nothing a reader sees as a sentence should sit below about 9:1.
+  comment. Nothing a reader parses as a sentence sits below **12:1**.
 - **The accent is used for three things only:** measured values, link
   underlines, and the bar beside a conditions line. Spending it anywhere else
   costs it its meaning.
 
-Every figure on the page is re-derived from the raw data published in the two
-linked repos. If a study is updated upstream, re-check the matching line here.
+Figures on the page are re‑derived from the raw data published in the linked
+repos. Generated counts come from the registry at build time; fixed‑run
+measurements carry their conditions.
 
 ## Custom domain later
 
