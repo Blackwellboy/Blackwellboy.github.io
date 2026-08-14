@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>About — Blackwellboy</title>
-<meta name="description" content="About Aaron Hughes (Blackwellboy): hands-on data-centre deployment work and first-hand model-serving measurement on a private cluster.">
+<meta name="description" content="About Blackwellboy: hands-on GPU infrastructure, multi-node model serving and independent AI systems research on real hardware.">
 <meta name="color-scheme" content="dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Blackwellboy">
 <meta property="og:title" content="About — Blackwellboy">
-<meta property="og:description" content="Hands-on data-centre deployment work and first-hand model-serving measurement on a private cluster.">
+<meta property="og:description" content="Hands-on GPU infrastructure, multi-node model serving and independent AI systems research on real hardware.">
 <meta property="og:url" content="https://blackwellboy.github.io/about.html">
 <meta property="og:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
 <meta property="og:image:width" content="1774">
@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@Blackwellboy">
 <meta name="twitter:title" content="About — Blackwellboy">
-<meta name="twitter:description" content="Hands-on data-centre deployment work and first-hand model-serving measurement on a private cluster.">
+<meta name="twitter:description" content="Hands-on GPU infrastructure, multi-node model serving and independent AI systems research on real hardware.">
 <meta name="twitter:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
 <link rel="canonical" href="https://blackwellboy.github.io/about.html">
 <link rel="stylesheet" href="site.css">
@@ -29,9 +29,9 @@
   <div class="nav-in">
     <a href="index.html" class="brand">BLACKWELLBOY</a>
     <div class="nav-links">
-      <a href="about.html" aria-current="page">About</a>
       <a href="work.html">Work</a>
       <a href="tools.html">Tools</a>
+      <a href="about.html" aria-current="page">About</a>
       <a href="corrections.html">Corrections</a>
       <a href="index.html#contact">Contact</a>
       <a href="https://github.com/Blackwellboy" class="ext">GitHub</a>
@@ -43,39 +43,39 @@
 <main>
   <header class="page-head">
     <p class="eyebrow">Blackwellboy / About</p>
-    <h1>Hands-on infrastructure, measured model serving.</h1>
-    <p class="lede">I work on the physical side of modern AI infrastructure and use my own cluster to test what model-serving stacks actually do. The point is not the hardware list; it is having enough different environments to tell a model problem from a serving problem.</p>
+    <h1>From the rack to the runtime.</h1>
+    <p class="lede">My background is hands-on AI infrastructure. Blackwellboy is where I apply the same discipline to model serving: build it, instrument it, reproduce it, and publish what survives.</p>
   </header>
 
   <section id="about">
     <h2>What I do</h2>
-    <p>My day-to-day work is hands-on data-centre deployment: B200 and B300 class systems, cabling and installation, fibre splicing and fibre engineering, racking, commissioning, testing and maintenance.</p>
+    <p>My infrastructure background is hands-on B200/B300-class GPU deployment: racking and installation, cabling, fibre splicing and fibre engineering, commissioning, testing and maintenance.</p>
 
-    <p>On my own systems I bring that same deployment discipline to local AI: reproduce the claim, pin the build, measure the behaviour, keep the raw output, and publish the conditions that make the number meaningful.</p>
+    <p>In the lab, the habits are the same: pin the build, change one thing at a time, keep the failed runs, and separate model behaviour from serving behaviour before drawing a conclusion.</p>
 
     <h3 class="sh">The lab</h3>
-    <p>The lab is a networked mix of DGX Sparks, multi-GPU workstation hardware and Apple silicon. Different architectures and runtimes are useful because disagreements are evidence: if the same weights behave differently across stacks, the serving path becomes part of the investigation.</p>
+    <p>The lab combines a multi-node DGX Spark cluster, multi-GPU workstation hardware and Apple silicon. The mix is intentional. When the same weights behave differently across runtimes or architectures, that disagreement becomes evidence about the serving path.</p>
 
     <h3 class="sh">How I publish</h3>
-    <p>I separate fixed-run measurements from facts about a live repository. Measurements keep their exact runtime, hardware and test conditions. Repository counts are generated from the source tree. Negative results, blocked tests and corrections stay visible instead of being cleaned out of the story.</p>
+    <p>Every number has a lane. Fixed-run measurements keep their exact runtime, hardware and test conditions. Facts about a live repository are generated from source. Open questions stay labelled as open. Negative results and corrections stay visible instead of being cleaned out of the story.</p>
   </section>
 
   <section id="stacks">
     <h2>Stacks measured first-hand</h2>
-    <p>Measured directly here on llama.cpp, MLX, Ollama, sglang and vLLM. The registry currently has 11 stack pages in total; pages for stacks I have not measured say so explicitly rather than borrowing confidence from another runtime.</p>
+    <p>Measured directly here on llama.cpp, MLX, Ollama, sglang and vLLM. The registry also documents other stacks, but pages for stacks I have not measured say so explicitly rather than borrowing confidence from another runtime.</p>
     <p>Across those lanes I have worked with NVFP4, FP8, GGUF at several quantisation levels and EXL3-tail builds, across model families including Laguna S 2.1, Qwen, DeepSeek, Gemma and MiniMax.</p>
   </section>
 
   <section id="uptake">
-    <h2>Independent uptake</h2>
-    <p class="sub">A few examples of the work being used or checked outside my own lab.</p>
+    <h2>Used and checked elsewhere</h2>
+    <p class="sub">External use matters because it tests whether the work survives outside my own setup.</p>
 
     <ul class="plain">
-      <li><b>The operators guide was used as a conformance reference on a stack I had not measured.</b> In <a href="https://github.com/youssofal/MTPLX/pull/195">youssofal/MTPLX PR 195</a>, the guide is the reference used while a parser-dialect problem on MLX is worked through. Credit to davidtai, who also reported a scoping error in my own work.</li>
+      <li><b>The operators guide was used as a conformance reference on a stack I had not measured.</b> In <a href="https://github.com/youssofal/MTPLX/pull/195">youssofal/MTPLX PR 195</a>, the guide is used while a parser-dialect problem on MLX is worked through. Credit to davidtai, who also reported a scoping error in my own work.</li>
 
       <li><b>Outside contributors add findings directly.</b> 12 contributors are credited in the <a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/HALL_OF_FAME.md">hall of fame</a> for findings or targets they supplied themselves. A further 15 people are credited separately as original reporters of findings mined from public trackers.</li>
 
-      <li><b>Findings have been carried into upstream/community documentation.</b> The 12-hour soak is referenced by <a href="https://github.com/TheTom/offlabel">TheTom's offlabel</a>, and the thinking-gate grid informed its rebuilt firing-gate section.</li>
+      <li><b>Findings have been carried into community documentation.</b> The 12-hour soak is referenced by <a href="https://github.com/TheTom/offlabel">TheTom's offlabel</a>, and the thinking-gate grid informed its rebuilt firing-gate section.</li>
 
       <li><b>Independent reproduction has changed the diagnosis.</b> Multi-turn reasoning-stripping was reported on llama.cpp and reproduced here on different hardware, quantisation and runtime, helping separate model behaviour from stack behaviour.</li>
     </ul>
@@ -83,8 +83,8 @@
 </main>
 
 <footer>
-  <p>Registry counts are generated from the source tree. Fixed-run study figures are published with their conditions instead.</p>
-  <p>If a number here does not check out, open an issue and it gets corrected in place, with a date.</p>
+  <p>Live repository facts are generated from source. Fixed-run measurements keep the exact conditions that produced them.</p>
+  <p>If something here does not check out, open an issue and it gets corrected in place, with a date.</p>
 </footer>
 
 </body>

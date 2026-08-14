@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blackwellboy - independent testing and deployment engineering for local AI models</title>
-<meta name="description" content="Independent verification, serving diagnosis and measurement auditing for local AI models. Findings published with their conditions and their raw data, including the ones that were refuted.">
+<title>Blackwellboy — independent AI systems testing and deployment engineering</title>
+<meta name="description" content="Independent AI systems testing, model-serving diagnosis and multi-node deployment engineering. Reproducible measurements, raw data, public corrections and deployment recipes from real hardware.">
 <meta name="color-scheme" content="dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Blackwellboy">
 <meta property="og:title" content="Blackwellboy">
-<meta property="og:description" content="Independent verification, serving diagnosis and measurement auditing for local AI models. Findings published with their conditions and their raw data.">
+<meta property="og:description" content="Independent AI systems testing and deployment engineering, with reproducible measurements, raw data and public corrections.">
 <meta property="og:url" content="https://blackwellboy.github.io/">
 <meta property="og:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
 <meta property="og:image:width" content="1774">
@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@Blackwellboy">
 <meta name="twitter:title" content="Blackwellboy">
-<meta name="twitter:description" content="Independent verification, serving diagnosis and measurement auditing for local AI models.">
+<meta name="twitter:description" content="Independent AI systems testing and deployment engineering, with reproducible measurements and raw data.">
 <meta name="twitter:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
 <link rel="canonical" href="https://blackwellboy.github.io/">
 <link rel="stylesheet" href="site.css">
@@ -29,9 +29,9 @@
   <div class="nav-in">
     <a href="index.html" class="brand" aria-current="page">BLACKWELLBOY</a>
     <div class="nav-links">
-      <a href="about.html">About</a>
       <a href="work.html">Work</a>
       <a href="tools.html">Tools</a>
+      <a href="about.html">About</a>
       <a href="corrections.html">Corrections</a>
       <a href="index.html#contact">Contact</a>
       <a href="https://github.com/Blackwellboy" class="ext">GitHub</a>
@@ -48,9 +48,9 @@
 <main>
 
   <div class="hero">
-    <h1>Independent testing and deployment engineering for local AI models.</h1>
-    <p class="lede">I measure what serving stacks actually do, publish the answer with its conditions and its raw data, and publish the results that went against me as loudly as the ones that did not.</p>
-    <p>I work hands-on in data centres on B200 and B300 class deployments, and I bring the same deployment discipline to the model-serving work on my own cluster.</p>
+    <h1>Independent AI systems testing and deployment engineering.</h1>
+    <p class="lede">I test model-serving stacks on real hardware, publish the conditions and raw data, and keep the failures, reversals and corrections visible alongside the wins.</p>
+    <p>My background is hands-on data-centre deployment — B200/B300-class GPU systems, fibre, commissioning and maintenance — and I bring the same discipline to the multi-node model-serving work in my own lab.</p>
 
     <div class="stats">
       <div class="stat"><b>116</b><span>serving traps documented</span></div>
@@ -58,58 +58,58 @@
       <div class="stat"><b>12</b><span>outside contributors credited</span></div>
       <div class="stat"><b>5</b><span>serving stacks measured here</span></div>
     </div>
-    <p class="counted-at">Every figure in that block is generated from the registry tree at build time, not typed in. Read at <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/0297b6377505e95f4339fd48fdc1b9f5402530ab"><code>0297b63</code></a>, 2026-08-12. <code>find traps -mindepth 2 -name '*.md' | wc -l</code> reproduces the first one.</p>
+    <p class="counted-at">Registry counts are generated from <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/0297b6377505e95f4339fd48fdc1b9f5402530ab">model-serving-minefield at <code>0297b63</code></a>, 2026-08-12 — not typed into this page by hand.</p>
   </div>
 
   <section id="available">
     <h2>Available for</h2>
-    <p class="sub">What I take on, with links to work that demonstrates each capability.</p>
+    <p class="sub">Independent testing, diagnosis and deployment work where the answer needs evidence rather than a guess.</p>
 
     <div class="caps">
       <div class="cap">
         <h3>Independent claim verification</h3>
         <p>Testing a vendor or community claim under controlled conditions, with the raw data published whichever way it lands.</p>
-        <p class="proof">Shown by the <a href="work.html#humaneval">HumanEval+ replication</a> and the <a href="work.html#identity-prefix">identity-prefix study</a>, both of which came out against the claim under test.</p>
+        <p class="proof">Evidence: <a href="work.html#humaneval">HumanEval+ replication</a> · <a href="work.html#identity-prefix">identity-prefix study</a></p>
       </div>
 
       <div class="cap">
         <h3>Serving and deployment diagnosis</h3>
         <p>Working out why a model looks broken when the model is fine — often a template, parser, history or serving-stack problem rather than a weights problem.</p>
-        <p class="proof">Shown by <a href="work.html#reasoning-stripping">multi-turn reasoning-stripping</a> and the <a href="tools.html">registry</a> it fed.</p>
+        <p class="proof">Evidence: <a href="work.html#reasoning-stripping">multi-turn reasoning-stripping</a> · <a href="tools.html">model-serving-minefield</a></p>
       </div>
 
       <div class="cap">
         <h3>Quantization verification</h3>
-        <p>Taking a third-party quant and establishing whether it holds: whether it builds and serves, what it costs in memory, and whether quality survives against the build you were already running.</p>
-        <p class="proof">Shown by the <a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/quant-floor">quant-floor study</a>. The kernel-path half is registry entry <a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/traps/quantization/10-quant-label-is-not-the-kernel-path.md">10: the quant label is not the kernel path</a>.</p>
+        <p>Establishing whether a third-party quant actually holds: does it build and serve, what does it cost in memory, and does quality survive against the control build?</p>
+        <p class="proof">Evidence: <a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/quant-floor">quant-floor study</a> · <a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/traps/quantization/10-quant-label-is-not-the-kernel-path.md">quant label ≠ kernel path</a></p>
       </div>
 
       <div class="cap">
         <h3>Long-duration production soaks</h3>
         <p>Running a model inside a real agent pipeline for as long as the question needs, and reporting drift, incidents and integrity behaviour rather than a single throughput number.</p>
-        <p class="proof">Written up: the <a href="work.html#soak">12-hour soak</a>.</p>
+        <p class="proof">Evidence: <a href="work.html#soak">12-hour production soak</a></p>
       </div>
 
       <div class="cap">
         <h3>Multi-node and tensor-parallel deployment</h3>
         <p>Bringing up models across networked nodes: fabric, topology, serving configuration and the failure modes that only appear once a model spans more than one box.</p>
-        <p class="proof">Shown by <a href="work.html#hy3">Hy3 on dual DGX Spark</a> and <a href="work.html#minimax">MiniMax-M3 on dual DGX Spark</a>.</p>
+        <p class="proof">Evidence: <a href="work.html#hy3">Hy3 on dual DGX Spark</a> · <a href="work.html#minimax">MiniMax-M3 on dual DGX Spark</a></p>
       </div>
 
       <div class="cap">
         <h3>Eval-harness and measurement auditing</h3>
         <p>Auditing a benchmark before trusting it: arm-level handicaps, scorer normalisation, contamination screens and harnesses that quietly score a correct answer as wrong.</p>
-        <p class="proof">Shown by the evaluation category of the <a href="tools.html">registry</a> and the <a href="work.html#humaneval">HumanEval+ replication</a>, where the original confound was a sampling difference between arms.</p>
+        <p class="proof">Evidence: <a href="work.html#humaneval">HumanEval+ replication</a> · <a href="tools.html">Minefield evaluation checks</a></p>
       </div>
     </div>
 
-    <h3 class="sh">What a first pass looks like</h3>
-    <p>Run <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/doctor">minefield-doctor</a> against your endpoint with <code>--report</code> and send me the output, along with the number that looks wrong and how you measured it. That creates a useful first artifact before either of us spends an hour guessing.</p>
+    <h3 class="sh">A useful first pass</h3>
+    <p>If you are debugging an OpenAI-compatible endpoint, start with <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/doctor">minefield-doctor</a> and send me the report together with the number or behaviour that looks wrong. That gives us evidence before we start changing things.</p>
   </section>
 
   <section id="contact">
     <h2>Contact</h2>
-    <p>Email or DM me on X. Include the stack you are using and the number or behaviour that looks wrong; that one line usually makes the first reply useful. If the finding belongs in the registry, an <a href="https://github.com/Blackwellboy/model-serving-minefield/issues/new/choose">issue on model-serving-minefield</a> is the public path, and contributors are credited by default.</p>
+    <p>Email or DM me on X. Include the stack you are using and the number or behaviour that looks wrong; that usually makes the first reply useful. If the finding belongs in the registry, open a <a href="https://github.com/Blackwellboy/model-serving-minefield/issues/new/choose">model-serving-minefield issue</a> so the evidence and credit stay public.</p>
 
     <div class="links" style="margin-top:var(--s5)">
       <a href="mailto:theaaronhughes@gmail.com">Email <span class="host">theaaronhughes@gmail.com</span></a>
@@ -125,8 +125,8 @@
 </main>
 
 <footer>
-  <p>Registry counts are generated from the source tree. Fixed-run study figures are published with their conditions instead.</p>
-  <p>If a number here does not check out, open an issue and it gets corrected in place, with a date.</p>
+  <p>Live repository facts are generated from source. Fixed-run measurements keep the exact conditions that produced them.</p>
+  <p>If something here does not check out, open an issue and it gets corrected in place, with a date.</p>
 </footer>
 
 </body>

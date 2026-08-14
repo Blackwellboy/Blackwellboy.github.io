@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Work — Blackwellboy</title>
-<meta name="description" content="Selected Blackwellboy studies and public deployment recipes, with results, conditions and raw data.">
+<meta name="description" content="Selected Blackwellboy studies, replications and public deployment recipes, with headline results, exact conditions and raw evidence.">
 <meta name="color-scheme" content="dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Blackwellboy">
 <meta property="og:title" content="Work — Blackwellboy">
-<meta property="og:description" content="Selected studies and deployment recipes, with results, conditions and raw data.">
+<meta property="og:description" content="Studies, replications and deployment recipes with the result up front and the evidence attached.">
 <meta property="og:url" content="https://blackwellboy.github.io/work.html">
 <meta property="og:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
 <meta property="og:image:width" content="1774">
@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@Blackwellboy">
 <meta name="twitter:title" content="Work — Blackwellboy">
-<meta name="twitter:description" content="Selected studies and deployment recipes, with results, conditions and raw data.">
+<meta name="twitter:description" content="Studies, replications and deployment recipes with the result up front and the evidence attached.">
 <meta name="twitter:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
 <link rel="canonical" href="https://blackwellboy.github.io/work.html">
 <link rel="stylesheet" href="site.css">
@@ -29,9 +29,9 @@
   <div class="nav-in">
     <a href="index.html" class="brand">BLACKWELLBOY</a>
     <div class="nav-links">
-      <a href="about.html">About</a>
       <a href="work.html" aria-current="page">Work</a>
       <a href="tools.html">Tools</a>
+      <a href="about.html">About</a>
       <a href="corrections.html">Corrections</a>
       <a href="index.html#contact">Contact</a>
       <a href="https://github.com/Blackwellboy" class="ext">GitHub</a>
@@ -43,19 +43,19 @@
 <main>
   <header class="page-head">
     <p class="eyebrow">Blackwellboy / Work</p>
-    <h1>Results first. Conditions one click away.</h1>
-    <p class="lede">Research studies, replications and deployment recipes. The page is deliberately scannable; the exact run conditions remain attached to every result instead of being removed for presentation.</p>
+    <h1>What held up, what failed, and how it was measured.</h1>
+    <p class="lede">Selected studies, replications and deployment recipes. Each card leads with the result; the raw evidence and exact run conditions stay attached rather than disappearing behind the headline.</p>
   </header>
 
   <section id="studies">
     <h2>Research studies</h2>
-    <p class="sub">Six studies where the interesting part was what the stack actually did, including results that contradicted the hypothesis going in.</p>
+    <p class="sub">Six studies where the interesting part was what the stack actually did, not whether it matched the hypothesis going in.</p>
 
     <div class="cards">
       <div class="card" id="thinking-gate">
         <p class="kicker">Reasoning behaviour</p>
         <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/gate-study">Thinking-gate study</a></h3>
-        <p>Thinking was not controlled by a flag or prompt length alone. A dense ten-rule persona block fired <span class="m">3/40</span>, while a much longer full agent prompt fired <span class="m">24/40</span>. Summarization fired <span class="m">0/105</span>; the same grid on Qwen 3.6 35B-A3B fired <span class="m">400/400</span>. The useful result is a prompt × task gate, not a simple dose-response story.</p>
+        <p>On this Laguna build, thinking was not controlled by a flag or prompt length alone. A dense ten-rule persona block fired <span class="m">3/40</span>, while a much longer full agent prompt fired <span class="m">24/40</span>. Summarization fired <span class="m">0/105</span>; the same grid on Qwen 3.6 35B-A3B fired <span class="m">400/400</span>. The useful result is a prompt × task gate, not a simple dose-response story.</p>
         <details class="evidence"><summary>Conditions &amp; reproducibility</summary><p class="cond">400 grid turns, 10 conditions by 4 task types, n=10 per cell, 450 turns logged including parser and criteria phases, 0 HTTP errors, single-turn. Laguna S 2.1 NVFP4 rev 0761412 under vLLM 0.25.1 on one DGX Spark GB10. These are within-run n=40 cells on this build and do not generalise across quants or runtimes: at n=492 on llama.cpp with a Q2_K_XL build, apollo-mg measured firing at 445/492 under a comparable apparatus.</p></details>
       </div>
 
@@ -69,7 +69,7 @@
       <div class="card" id="reasoning-stripping">
         <p class="kicker">Multi-turn serving</p>
         <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/context-mass">Multi-turn reasoning-stripping</a></h3>
-        <p>Standard OpenAI-style clients often do not send prior-turn reasoning back. The template then renders earlier assistant turns with empty think blocks and the model quietly stops thinking. Identical transcripts fired <span class="m">10/10</span> with reasoning preserved and <span class="m">0/10</span> stripped at both depths tested. The fix is to resend reasoning on assistant history messages.</p>
+        <p>In the OpenAI-style client path tested, prior-turn reasoning was not sent back. The template then rendered earlier assistant turns with empty think blocks and the model quietly stopped thinking. Identical transcripts fired <span class="m">10/10</span> with reasoning preserved and <span class="m">0/10</span> stripped at both depths tested. The fix on that path is to resend reasoning on assistant history messages.</p>
         <details class="evidence"><summary>Conditions &amp; reproducibility</summary><p class="cond">Depth 10 and depth 20 conversations, identical transcripts both arms, max_tokens 4096. Measured on the 0xSero 3.25bpw EXL3 hybrid lane. Confirmation on the NVFP4 production lane is still open and remains listed as open in the study.</p></details>
       </div>
 
@@ -83,14 +83,14 @@
       <div class="card" id="tuning-sweep">
         <p class="kicker">Performance tuning</p>
         <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/sweep">20-cell tuning sweep</a></h3>
-        <p>Speculative depth beyond K=7 made this model slower at every concurrency level tested. The single-stream winner reached <span class="m">26.2 tok/s</span> median and <span class="m">61.65 tok/s</span> aggregate at concurrency 4. The grid’s best aggregate was a different cell: K=6 with max-num-seqs 8 at <span class="m">62.26 tok/s</span>.</p>
+        <p>In this grid, speculative depth beyond K=7 made the model slower at every concurrency level tested. The single-stream winner reached <span class="m">26.2 tok/s</span> median and <span class="m">61.65 tok/s</span> aggregate at concurrency 4. The grid’s best aggregate was a different cell: K=6 with max-num-seqs 8 at <span class="m">62.26 tok/s</span>.</p>
         <details class="evidence"><summary>Conditions &amp; reproducibility</summary><p class="cond">20 cells, K 5 to 9 by max-num-seqs 4 to 32, single run per cell. NVFP4 rev 0761412 under vLLM 0.25.1 on one GB10, Hermes bench v1 short subset, TTFT 322 ms at the single-stream winner. Every losing cell is published.</p></details>
       </div>
 
       <div class="card" id="soak">
         <p class="kicker">Production stability</p>
         <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/soak">12-hour production soak</a></h3>
-        <p><span class="m">3,096</span> HTTP-200 turns across <span class="m">409</span> sessions, with zero crashes and zero restarts, inside a real agent pipeline. Thinking fired on only <span class="m">3</span> turns despite being requested every turn; the later reasoning-stripping study explains that anomaly.</p>
+        <p><span class="m">3,096</span> HTTP-200 turns across <span class="m">409</span> sessions, with zero crashes and zero restarts, inside a real agent pipeline. Thinking fired on only <span class="m">3</span> turns despite being requested every turn; the later reasoning-stripping study explains that anomaly on the tested serving path.</p>
         <details class="evidence"><summary>Conditions, correction &amp; reproducibility</summary><p class="cond">One 12-hour run, production profile K=7 and max-num-seqs=32, max_tokens 8192, thinking requested on every turn. 3,099 rows logged; 3,096 returned HTTP 200. NVFP4 rev 0761412 under vLLM 0.25.1 on one GB10. Correction 2026-07-25: 409 sessions = 400 completed + 9 killed at the driver token cap; the three extra lines are <code>kind: integrity_probe</code> and all returned HTTP 200. Per-turn log at lab tip <code>4507826</code>. Carried in TheTom’s offlabel guide as external validation.</p></details>
       </div>
     </div>
@@ -98,14 +98,14 @@
 
   <section id="recipes">
     <h2>Public deployment recipes</h2>
-    <p class="sub">Complete bring-up recipes for large models on DGX Spark pairs. Headline numbers stay beside the exact lane that produced them.</p>
+    <p class="sub">Complete bring-up recipes for large models on DGX Spark pairs. These are lane-specific measurements, not universal model-speed claims.</p>
 
     <div class="cards">
       <div class="card" id="hy3">
         <p class="kicker">295B MoE / dual DGX Spark</p>
         <h3><a href="https://github.com/Blackwellboy/Hy3-295B-NVFP4-MTP-Dual-DGX-Spark">Hy3 — NVFP4 + MTP</a></h3>
         <p>Tencent Hy3 across two DGX Sparks with TP=<span class="m">2</span>, native MTP, FP8 KV cache and structured <code>hy_v3</code> tool calling. Measured at <span class="m">13.1 tok/s</span> single-stream no-think, <span class="m">9.4 tok/s</span> thinking, and <span class="m">36.9 tok/s</span> six-way aggregate. MTP position-1 acceptance was <span class="m">63.5%</span>.</p>
-        <p>Accuracy slice N=100: GSM8K <span class="m">98.7%</span>, MMLU <span class="m">90/100</span>. Peak/node was about <span class="m">120/121 GiB</span>; cold start about <span class="m">14 min</span>.</p>
+        <p>Accuracy slice N=100: GSM8K <span class="m">98.7%</span>; MMLU <span class="m">90/100</span>. Peak/node was about <span class="m">120/121 GiB</span>; cold start about <span class="m">14 min</span>.</p>
         <details class="evidence"><summary>Conditions &amp; implementation notes</summary><p class="cond">vLLM image <code>eugr/spark-vllm</code>, CUDA 13.0 default toolchain, marlin NVFP4-MoE path, FP8 KV, <code>hy_v3</code> parsers patched in-container. The prebuilt image runs weight-only FP4 on <code>sm_120</code>; the repo documents the from-source <code>sm_121a</code> path as the speed lever. Full flags and accuracy methodology are in the linked README.</p></details>
       </div>
 
@@ -113,7 +113,7 @@
         <p class="kicker">428B / dual DGX Spark</p>
         <h3><a href="https://github.com/Blackwellboy/MiniMax-M3-2x-DGX-Spark-stock-driver">MiniMax-M3 — stock-driver recipe</a></h3>
         <p>Full 428B MiniMax-M3 on two DGX Sparks with the stock DGX Spark OS driver. The standing speculative lane measured <span class="m">34.0</span> code / <span class="m">41.1</span> structured / <span class="m">25.5</span> prose tok/s. A drafterless fallback runs at roughly <span class="m">23 tok/s</span> across the tested shapes.</p>
-        <p>Deep run: <span class="m">17.8 tok/s</span> at 113K with TTFT around <span class="m">147 s</span>. The key deployment finding is that the b12x attention lane crashes at first token on CUDA 13.0, while the KVarN lanes run on the stock driver.</p>
+        <p>Deep run: <span class="m">17.8 tok/s</span> at 113K with TTFT around <span class="m">147 s</span>. The deployment finding was that the b12x attention lane crashed at first token on CUDA 13.0, while the KVarN lanes ran on the stock driver.</p>
         <details class="evidence"><summary>Conditions &amp; implementation notes</summary><p class="cond">W4A16 GPTQ weights + KVarN 4-bit-K/2-bit-V KV cache + EAGLE-3 speculative decoding, TP=2, all-Triton attention. Lane C acceptance 0.65 / 0.80 / 0.36 for code / structured / prose; KV pool 217,600 tok. Lane B prefill about 880 tok/s; KV pool 378,496 tok. Upstream stack pinned at <code>a3refaat/spark-vllm-docker@f942437</code>; image <code>ghcr.io/blackwellboy/vllm-node-minimax-m3-b12x:cuda13.0-f942437</code>.</p></details>
       </div>
     </div>
@@ -121,8 +121,8 @@
 </main>
 
 <footer>
-  <p>Registry counts are generated from the source tree. Fixed-run study figures are published with their conditions instead.</p>
-  <p>If a number here does not check out, open an issue and it gets corrected in place, with a date.</p>
+  <p>Live repository facts are generated from source. Fixed-run measurements keep the exact conditions that produced them.</p>
+  <p>If something here does not check out, open an issue and it gets corrected in place, with a date.</p>
 </footer>
 
 </body>

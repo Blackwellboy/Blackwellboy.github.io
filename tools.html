@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tools — Blackwellboy</title>
-<meta name="description" content="Blackwellboy tools for model-serving diagnosis, preflight checks, playbooks and integrity.">
+<meta name="description" content="Blackwellboy tools for model-serving diagnosis, endpoint preflight, template forensics, playbooks and research integrity.">
 <meta name="color-scheme" content="dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Blackwellboy">
 <meta property="og:title" content="Tools — Blackwellboy">
-<meta property="og:description" content="Model-serving diagnosis, preflight checks, playbooks and integrity tools.">
+<meta property="og:description" content="Model-serving diagnosis, endpoint preflight, template forensics, playbooks and research integrity.">
 <meta property="og:url" content="https://blackwellboy.github.io/tools.html">
 <meta property="og:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
 <meta property="og:image:width" content="1774">
@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@Blackwellboy">
 <meta name="twitter:title" content="Tools — Blackwellboy">
-<meta name="twitter:description" content="Model-serving diagnosis, preflight checks, playbooks and integrity tools.">
+<meta name="twitter:description" content="Model-serving diagnosis, endpoint preflight, template forensics, playbooks and research integrity.">
 <meta name="twitter:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
 <link rel="canonical" href="https://blackwellboy.github.io/tools.html">
 <link rel="stylesheet" href="site.css">
@@ -29,9 +29,9 @@
   <div class="nav-in">
     <a href="index.html" class="brand">BLACKWELLBOY</a>
     <div class="nav-links">
-      <a href="about.html">About</a>
       <a href="work.html">Work</a>
       <a href="tools.html" aria-current="page">Tools</a>
+      <a href="about.html">About</a>
       <a href="corrections.html">Corrections</a>
       <a href="index.html#contact">Contact</a>
       <a href="https://github.com/Blackwellboy" class="ext">GitHub</a>
@@ -43,8 +43,8 @@
 <main>
   <header class="page-head">
     <p class="eyebrow">Blackwellboy / Tools</p>
-    <h1>Checks you can run before blaming the model.</h1>
-    <p class="lede">The tools are built around one idea: make the serving path observable. Start with the smallest check that can falsify your current explanation, then go deeper only if it survives.</p>
+    <h1>Checks to run before blaming the model.</h1>
+    <p class="lede">Start with the smallest test that can prove your current explanation wrong. These tools make the serving path observable before you spend hours tuning weights, prompts or hardware.</p>
   </header>
 
   <section id="start-here">
@@ -62,7 +62,7 @@
       <div class="card">
         <p class="kicker">Fastest triage</p>
         <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/CORE.md">The Core 12</a></h3>
-        <p>The small set to check first when you do not yet know where the failure lives. These are the traps chosen because they are cheap to test, easy to mistake for model behaviour, and have already cost time across more than one setup.</p>
+        <p>The small set to check first when you do not yet know where the failure lives. These are cheap to test, easy to mistake for model behaviour, and have already cost time across more than one setup.</p>
       </div>
 
       <div class="card">
@@ -74,7 +74,7 @@
 
       <div class="card">
         <p class="kicker">Template forensics</p>
-        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/checks">preflight_template.py</a></h3>
+        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/checks/preflight_template.py">preflight_template.py</a></h3>
         <p>Renders a marked multi-turn conversation through your own path so you can inspect what the model actually receives at turn N. This catches history stripping, role/template mutations and reasoning loss that request-shaped endpoint checks can miss.</p>
       </div>
     </div>
@@ -107,8 +107,8 @@
 </main>
 
 <footer>
-  <p>Registry counts are generated from the source tree. Fixed-run study figures are published with their conditions instead.</p>
-  <p>If a number here does not check out, open an issue and it gets corrected in place, with a date.</p>
+  <p>Live repository facts are generated from source. Fixed-run measurements keep the exact conditions that produced them.</p>
+  <p>If something here does not check out, open an issue and it gets corrected in place, with a date.</p>
 </footer>
 
 </body>
