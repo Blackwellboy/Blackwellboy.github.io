@@ -1,67 +1,78 @@
 # blackwellboy.github.io
 
-Public site for the Blackwellboy identity, served by GitHub Pages from the
-`main` branch of this repo. No framework, no client JavaScript.
+Public site for the Blackwellboy identity, served by GitHub Pages from `main`.
+No framework and no client JavaScript.
 
 Live: https://blackwellboy.github.io/
 
 ## Pages
 
-- `index.html` — front page (photo, lede, generated registry stats, Available for, Contact)
-- `about.html` — background, fleet and serving‑stacks copy (first‑person)
-- `work.html` — selected studies plus public recipe cards (with conditions)
-- `corrections.html` — “What I got wrong”
-- `tools.html` — registry, playbooks, doctor, preflight, integrity, operators guide
+- `index.html` — front page: wordmark, short positioning, generated registry stats, services, contact
+- `about.html` — background, lab philosophy, measured stacks, independent uptake
+- `work.html` — research studies and public deployment recipes
+- `tools.html` — Minefield, Core, doctor, template preflight, playbooks and integrity
+- `corrections.html` — retractions, narrowed claims and corrections
 
-The shared CSS lives in `site.css`. The look is deliberate:
+The source for each page is its matching `*.template.html`; generated `*.html`
+files are committed because GitHub Pages serves directly from the branch.
 
-- Do not restyle the theme: keep the existing colour tokens, fonts, neon‑on‑h2,
-  card chrome and sodium rules exactly as they are.
-- Do not remove, replace or restyle the wordmark photo on the front page. Keep
-  `blackwellboy-1400.jpg` / `-900` / `-600` exactly as in the template: same
-  `img.plate`, same `srcset`, same `sizes`, same `alt`.
-- The accent is used for three things only: measured values, link underlines,
-  and the bar beside a conditions line.
+## Design rules
 
-## Templates and build
+The front-page visual identity is deliberate. `site.css` keeps the existing dark
+palette, typography, sodium measurement accent, neon section headings and card chrome.
 
-Humans edit templates, not generated HTML.
+Do not casually:
 
-- Source templates: `*.template.html` (one per page)
-- Generated files: `*.html`
-- Registry‑derived tokens (`{{REG_*}}`) are substituted at build time from a
-  checked‑out copy of `model-serving-minefield`.
+- change the colour tokens or font stack;
+- replace/restyle the front-page wordmark image;
+- spend the sodium accent on decorative UI;
+- turn the evidence pages into generic marketing cards.
 
-Local build/check:
+The navigation is wider than the reading column on desktop and wraps on mobile so
+external links such as GitHub remain visible instead of being hidden behind a
+horizontal-scroll area.
+
+## Content rules
+
+- Lead with the result; keep methodology attached rather than burying it elsewhere.
+- Dense work-card conditions live in native `<details>` blocks so the page is scannable
+  without deleting the evidence.
+- Fixed-run measurements stay hand-written with their build/hardware conditions.
+- Facts about the current state of `model-serving-minefield` are generated from that
+  repository at build time.
+- Corrections stay public and are linked to the claim they changed.
+
+## Build
+
+Registry-derived tokens (`{{REG_*}}`, contributor counts, doctor checks, etc.) are
+substituted from a checked-out copy of `model-serving-minefield`.
 
 ```bash
 python3 build.py --registry /path/to/model-serving-minefield --all
 python3 build.py --registry /path/to/model-serving-minefield --all --check
 ```
 
-CI:
+On pull requests, CI checks that every generated page matches a fresh render. On
+`main`, the workflow renders all pages and commits only when the rendered bytes change.
+Edit templates, not generated files.
 
-- Pull requests run a check that all generated `*.html` files match a fresh
-  render. If you edit a generated file directly, CI fails with a message to
-  edit the corresponding `*.template.html` instead.
-- On `main` (push or schedule), CI renders all pages and commits only when the
-  rendered bytes change.
+## Front-page image
 
-## Content discipline
+Keep these assets and the current `img.plate` / `srcset` / `sizes` arrangement intact:
 
-- The registry stats are generated on build so they cannot silently go stale.
-- Study figures are hand‑written with their conditions and links to raw data.
-- The `work.html` recipe cards copy their numbers and conditions from public
-  READMEs; do not invent a figure that is not stated there.
+- `blackwellboy-1400.jpg`
+- `blackwellboy-900.jpg`
+- `blackwellboy-600.jpg`
+- `blackwellboy.jpg` (Open Graph / social image)
 
 ## Custom domain (optional)
 
-To point a custom domain (for example `blackwellboy.ai`) at this site:
+To point a custom domain at the site:
 
-1. Add `CNAME` at the repo root with the bare domain (e.g. `blackwellboy.ai`).
-2. Configure DNS (CNAME `www` to `blackwellboy.github.io`, or A records for the apex).
-3. In repo Settings → Pages, set the custom domain and enable Enforce HTTPS.
+1. add a `CNAME` file containing the bare domain;
+2. configure DNS for GitHub Pages;
+3. set the domain under repository Settings → Pages and enable HTTPS.
 
-Asset URLs are relative so the site works unmodified on either domain. Open‑Graph
-image URLs are absolute (`https://blackwellboy.github.io/blackwellboy.jpg`);
-change them only if you want unfurls to show the custom domain.
+Internal asset/page links are relative so branch previews continue to work. Open Graph
+image URLs are absolute to `https://blackwellboy.github.io/blackwellboy.jpg` and can be
+changed later if a custom domain becomes canonical.

@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tools — Blackwellboy</title>
-<meta name="description" content="Registry, playbooks, doctor and integrity tools used across stacks.">
+<meta name="description" content="Blackwellboy tools for model-serving diagnosis, preflight checks, playbooks and integrity.">
 <meta name="color-scheme" content="dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Blackwellboy">
 <meta property="og:title" content="Tools — Blackwellboy">
-<meta property="og:description" content="Registry, playbooks, doctor and integrity tools used across stacks.">
+<meta property="og:description" content="Model-serving diagnosis, preflight checks, playbooks and integrity tools.">
 <meta property="og:url" content="https://blackwellboy.github.io/tools.html">
 <meta property="og:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
 <meta property="og:image:width" content="1774">
@@ -18,7 +18,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@Blackwellboy">
 <meta name="twitter:title" content="Tools — Blackwellboy">
-<meta name="twitter:description" content="Registry, playbooks, doctor and integrity tools used across stacks.">
+<meta name="twitter:description" content="Model-serving diagnosis, preflight checks, playbooks and integrity tools.">
 <meta name="twitter:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
 <link rel="canonical" href="https://blackwellboy.github.io/tools.html">
 <link rel="stylesheet" href="site.css">
@@ -28,79 +28,87 @@
 <nav class="nav" aria-label="Primary">
   <div class="nav-in">
     <a href="index.html" class="brand">BLACKWELLBOY</a>
-    <a href="about.html">About</a>
-    <a href="work.html">Work</a>
-    <a href="corrections.html">Corrections</a>
-    <a href="tools.html">Tools</a>
-    <a href="index.html#available">Available for</a>
-    <a href="index.html#contact">Contact</a>
-    <a href="https://github.com/Blackwellboy" class="ext">GitHub</a>
-    <a href="https://x.com/Blackwellboy" class="ext">X</a>
+    <div class="nav-links">
+      <a href="about.html">About</a>
+      <a href="work.html">Work</a>
+      <a href="tools.html" aria-current="page">Tools</a>
+      <a href="corrections.html">Corrections</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="https://github.com/Blackwellboy" class="ext">GitHub</a>
+      <a href="https://x.com/Blackwellboy" class="ext x-link">X</a>
+    </div>
   </div>
 </nav>
 
 <main>
-  <section id="tools">
-    <h2>Tools</h2>
-    <p class="sub">General-purpose, not tied to any one model.</p>
+  <header class="page-head">
+    <p class="eyebrow">Blackwellboy / Tools</p>
+    <h1>Checks you can run before blaming the model.</h1>
+    <p class="lede">The tools are built around one idea: make the serving path observable. Start with the smallest check that can falsify your current explanation, then go deeper only if it survives.</p>
+  </header>
+
+  <section id="start-here">
+    <h2>Start here</h2>
+    <p class="sub">The shortest path from “this model looks wrong” to a useful diagnosis.</p>
 
     <div class="cards">
       <div class="card">
+        <p class="kicker">Registry</p>
         <h3><a href="https://github.com/Blackwellboy/model-serving-minefield">model-serving-minefield</a></h3>
-        <p>A registry of serving and config bugs that produce confidently wrong measurements. <span class="m">116</span> entries across <span class="m">9</span> categories: evaluation, memory, quantization, reasoning, routing, runtime, template, tools, versioning. Each entry leads with the symptom you would actually observe, then the mechanism, the check that catches it, and the fix, and each is marked reproduced-here, reported-by-others, or under test.</p>
+        <p>A registry of serving and configuration failures that can make a healthy model look broken or make a bad measurement look convincing. It currently contains <span class="m">116</span> entries across <span class="m">9</span> categories: evaluation, memory, quantization, reasoning, routing, runtime, template, tools, versioning.</p>
+        <p class="proof">Each entry starts with the symptom, then the mechanism, the check that catches it and the fix. Evidence status is explicit: reproduced here, reported by others, or under test.</p>
       </div>
 
       <div class="card">
+        <p class="kicker">Fastest triage</p>
         <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/CORE.md">The Core 12</a></h3>
-        <p>Reading 116 entries is nobody's plan for the evening. The Core tier is the 12 chosen on evidence of what has actually cost people time: the symptom looks like a property of the model, the check is cheap, and it has already bitten more than one person or more than one stack. Everything else is marked Extended, which means specific rather than lesser.</p>
+        <p>The small set to check first when you do not yet know where the failure lives. These are the traps chosen because they are cheap to test, easy to mistake for model behaviour, and have already cost time across more than one setup.</p>
       </div>
 
       <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/playbooks">Playbooks and stack pages</a></h3>
-        <p>7 ordered checklists for the job you actually arrived with, rather than the symptom you can name: publishing an A/B, thinking dying on turn two, porting a harness to a new server, long context looking broken, reading a soak. Every step names the entry it guards against and the check to run. Alongside them, <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/stacks">11 stack pages</a> covering hf-transformers, llama.cpp, lm-studio, MLX, Ollama, sglang, tabbyapi, tensorrt-llm, text-generation-inference, text-generation-webui and vLLM, each listing the entries that bite hardest there and the three checks to run first.</p>
-      </div>
-
-      <div class="card">
+        <p class="kicker">Endpoint preflight</p>
         <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/doctor">minefield-doctor</a></h3>
-        <p>One stdlib-only Python file. Point it at your OpenAI-compatible endpoint and it runs <span class="m">19</span> read-only checks in under a minute. Its own README is blunt about the limits: read it as a thinking-stack preflight rather than a doctor, because those checks cluster on reasoning fields, templates, thinking control, tool parsing and ceilings, and say nothing about quantisation kernel paths, container toolchains, memory, MoE routing, harness confounds or long context. A clean run is not a clean bill of health, and anything it could not check is reported as not checked, with the reason.</p>
+        <p>A stdlib-only Python preflight for OpenAI-compatible endpoints. It runs <span class="m">19</span> read-only checks covering reasoning fields, templates, thinking control, tool parsing and output ceilings, and reports anything it could not check instead of pretending it passed.</p>
+        <p class="proof">A clean doctor run is not a clean bill of health; it is a fast first pass over the failure classes visible from the API surface.</p>
       </div>
 
       <div class="card">
+        <p class="kicker">Template forensics</p>
         <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/checks">preflight_template.py</a></h3>
-        <p>Template forensics for the question every request-shaped check misses: what does the model actually receive at turn N? It renders a marked three-turn conversation through your own serving path and reports whether what you sent survived the round trip. If you only run one check, run this one.</p>
-      </div>
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/integrity">The integrity layer</a></h3>
-        <p>The registry checks itself, and this page is one of the surfaces it checks. A claim ledger records every retracted or corrected finding together with the distinctive phrasings to search for, and a propagation checker fails the build when any surface still carries a superseded claim without its correction attached. Every check is exercised by a mutation test that reintroduces the exact failure it was built for, and the whole set runs in CI on every push.</p>
-      </div>
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/blob/main/LAGUNA_OPERATORS_GUIDE.md">Laguna S 2.1 operators guide</a></h3>
-        <p>A worked example rather than a general tool: the same method run end to end on one model, covering serving config, thinking control, tool format and quantization floor. Every claim links the study directory holding its raw data and every figure carries its conditions.</p>
+        <p>Renders a marked multi-turn conversation through your own path so you can inspect what the model actually receives at turn N. This catches history stripping, role/template mutations and reasoning loss that request-shaped endpoint checks can miss.</p>
       </div>
     </div>
   </section>
 
-  <section id="uptake">
-    <h2>Independent uptake</h2>
-    <p class="sub">Things other people did with this work. Stated narrowly, because every one is checkable.</p>
+  <section id="reference">
+    <h2>Reference &amp; integrity</h2>
+    <p class="sub">Deeper material for reproducing, porting and keeping claims consistent over time.</p>
 
-    <ul class="plain">
-      <li><b>The operators guide was cited as a conformance reference by a project on a stack I have never touched.</b> In <a href="https://github.com/youssofal/MTPLX/pull/195">youssofal/MTPLX PR 195</a>, the lab is named as the operator guide the checkpoint is documented against, and the guide's own tool-format check did not pass on that MLX stack until a parser dialect bug was fixed. I was not mentioned and made no approach. Credit to davidtai, who also found a scoping error in my own work and reported it.</li>
+    <div class="cards">
+      <div class="card">
+        <p class="kicker">Operational guides</p>
+        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/playbooks">Playbooks and stack pages</a></h3>
+        <p><span class="m">7</span> ordered playbooks for jobs such as publishing an A/B, debugging reasoning loss, porting a harness, investigating long context and reading a soak. Alongside them are <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/stacks">11 stack pages</a> covering hf-transformers, llama.cpp, lm-studio, MLX, Ollama, sglang, tabbyapi, tensorrt-llm, text-generation-inference, text-generation-webui and vLLM.</p>
+      </div>
 
-      <li><b>Outside contributors supply entries directly.</b> 12 are credited in the <a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/HALL_OF_FAME.md">hall of fame</a> for findings or targets they supplied themselves, including a thirteen-entry contribution measured on the contributor's own hardware and a serving target supplied specifically to give the registry a fourth stack. A further 15 people are credited separately as the original reporters of findings mined from public trackers, marked as reported rather than reproduced here.</li>
+      <div class="card">
+        <p class="kicker">Self-checking research</p>
+        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/integrity">The integrity layer</a></h3>
+        <p>A claim ledger records corrections and retractions, and propagation checks look for superseded phrasing across public surfaces. Mutation tests deliberately reintroduce known failures so the checks prove they can still catch the thing they were built for.</p>
+      </div>
 
-      <li><b>Two pull requests merged upstream, and findings cross-cited both ways.</b> The 12-hour soak is carried in <a href="https://github.com/TheTom/offlabel">TheTom's offlabel</a> guide as external validation, and the thinking-gate grid is the basis of its rebuilt firing-gate section, replacing an earlier composite drawn from three different stacks.</li>
-
-      <li><b>An external contributor's finding confirmed first-hand on different hardware.</b> The multi-turn reasoning-stripping mechanism was independently reported on llama.cpp and reproduced here on a different quant and runtime, which is what separated model behaviour from stack behaviour.</li>
-    </ul>
+      <div class="card">
+        <p class="kicker">Worked example</p>
+        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/blob/main/LAGUNA_OPERATORS_GUIDE.md">Laguna S 2.1 operators guide</a></h3>
+        <p>A model-specific example of the same method end to end: serving configuration, thinking control, tool format and quantisation floor, with each claim linked back to the study directory holding the raw data.</p>
+      </div>
+    </div>
   </section>
 </main>
 
 <footer>
-  <p>The counts on this site are generated from the registry tree at build time, so they cannot go stale without the build going stale with them. Study figures are not generated: each is a measurement from one run at one revision, and each carries its conditions instead.</p>
-  <p>If a number here does not check out, open an issue on either repo and it gets fixed in place, with a date.</p>
+  <p>Registry counts are generated from the source tree. Fixed-run study figures are published with their conditions instead.</p>
+  <p>If a number here does not check out, open an issue and it gets corrected in place, with a date.</p>
 </footer>
 
 </body>
