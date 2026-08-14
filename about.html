@@ -30,6 +30,7 @@
     <a href="index.html" class="brand">BLACKWELLBOY</a>
     <div class="nav-links">
       <a href="work.html">Work</a>
+      <a href="models.html">Models</a>
       <a href="tools.html">Tools</a>
       <a href="about.html" aria-current="page">About</a>
       <a href="corrections.html">Corrections</a>
@@ -50,33 +51,58 @@
   <section id="about">
     <h2>What I do</h2>
     <p>My infrastructure background is hands-on B200/B300-class GPU deployment: racking and installation, cabling, fibre splicing and fibre engineering, commissioning, testing and maintenance.</p>
-
     <p>In the lab, the habits are the same: pin the build, change one thing at a time, keep the failed runs, and separate model behaviour from serving behaviour before drawing a conclusion.</p>
 
     <h3 class="sh">The lab</h3>
-    <p>The lab combines a multi-node DGX Spark cluster, multi-GPU workstation hardware and Apple silicon. The mix is intentional. When the same weights behave differently across runtimes or architectures, that disagreement becomes evidence about the serving path.</p>
+    <p>The public lab footprint spans five DGX Sparks, an RTX 5090 workstation and Apple silicon. The mix is intentional: different memory systems, runtimes and deployment shapes make it easier to tell a checkpoint problem from a serving-path problem.</p>
 
     <h3 class="sh">How I publish</h3>
     <p>Every number has a lane. Fixed-run measurements keep their exact runtime, hardware and test conditions. Facts about a live repository are generated from source. Open questions stay labelled as open. Negative results and corrections stay visible instead of being cleaned out of the story.</p>
   </section>
 
-  <section id="stacks">
-    <h2>Stacks measured first-hand</h2>
-    <p>Measured directly here on llama.cpp, MLX, Ollama, sglang and vLLM. The registry also documents other stacks, but pages for stacks I have not measured say so explicitly rather than borrowing confidence from another runtime.</p>
-    <p>Across those lanes I have worked with NVFP4, FP8, GGUF at several quantisation levels and EXL3-tail builds, across model families including Laguna S 2.1, Qwen, DeepSeek, Gemma and MiniMax.</p>
+  <section id="what-i-test">
+    <h2>What I test</h2>
+    <p class="sub">A model is only one component. The work follows the whole path from prompt to kernel to network to scored output.</p>
+    <div class="tile-grid">
+      <div class="test-tile"><span>01</span><h3>Performance</h3><p>Decode throughput, TTFT, prefill, concurrency, speculative acceptance and the point where a tuning knob stops paying.</p></div>
+      <div class="test-tile"><span>02</span><h3>Quality</h3><p>Fixed task suites, thinking-on/off arms, accuracy slices, control models and checks for a quant that got faster by getting worse.</p></div>
+      <div class="test-tile"><span>03</span><h3>Serving</h3><p>Chat templates, reasoning fields, tools, history round-trips, parser behaviour and API semantics that can impersonate model behaviour.</p></div>
+      <div class="test-tile"><span>04</span><h3>Systems</h3><p>Quantisation paths, memory, kernels, tensor parallelism, NCCL/fabric behaviour and multi-node deployment geometry.</p></div>
+      <div class="test-tile"><span>05</span><h3>Stability</h3><p>Long soaks, repeated requests, context depth, cache behaviour, degradation signals and the difference between “still running” and “still correct”.</p></div>
+    </div>
+  </section>
+
+  <section id="hardware-runtime">
+    <h2>Hardware &amp; runtimes</h2>
+    <div class="two-col">
+      <div>
+        <h3 class="sh">Hardware used publicly</h3>
+        <div class="spec-list">
+          <div><b>DGX Spark / GB10</b><span>large-model serving, TP, speculative decode, long context, soaks</span></div>
+          <div><b>RTX 5090</b><span>single-node comparisons, llama.cpp / DFlash-style targeted tests</span></div>
+          <div><b>Apple silicon</b><span>MLX and ultra-low-bit / ternary model work</span></div>
+        </div>
+      </div>
+      <div>
+        <h3 class="sh">Serving stacks</h3>
+        <p>The Minefield's explicit first-hand markers currently cover llama.cpp, MLX, Ollama, sglang and vLLM. Separate public Kimi work also covers SparkInfer. Other stack pages in the registry remain clearly marked when they are documentation or upstream evidence rather than my measurement.</p>
+        <div class="runtime-tags"><span>vLLM</span><span>SparkInfer</span><span>llama.cpp</span><span>SGLang</span><span>MLX</span><span>Ollama</span><span>HF Transformers</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="models-link">
+    <h2>The model wall</h2>
+    <p>Laguna, Qwen, DeepSeek, Kimi, Hy3, MiniMax, Nemotron, Bonsai, Muse and other targeted lanes now have a dedicated <a href="models.html">Models</a> page. It distinguishes full deployments from full campaigns, targeted tests and controls instead of pretending every name received the same depth of work.</p>
   </section>
 
   <section id="uptake">
     <h2>Used and checked elsewhere</h2>
     <p class="sub">External use matters because it tests whether the work survives outside my own setup.</p>
-
     <ul class="plain">
       <li><b>The operators guide was used as a conformance reference on a stack I had not measured.</b> In <a href="https://github.com/youssofal/MTPLX/pull/195">youssofal/MTPLX PR 195</a>, the guide is used while a parser-dialect problem on MLX is worked through. Credit to davidtai, who also reported a scoping error in my own work.</li>
-
       <li><b>Outside contributors add findings directly.</b> 12 contributors are credited in the <a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/HALL_OF_FAME.md">hall of fame</a> for findings or targets they supplied themselves. A further 15 people are credited separately as original reporters of findings mined from public trackers.</li>
-
       <li><b>Findings have been carried into community documentation.</b> The 12-hour soak is referenced by <a href="https://github.com/TheTom/offlabel">TheTom's offlabel</a>, and the thinking-gate grid informed its rebuilt firing-gate section.</li>
-
       <li><b>Independent reproduction has changed the diagnosis.</b> Multi-turn reasoning-stripping was reported on llama.cpp and reproduced here on different hardware, quantisation and runtime, helping separate model behaviour from stack behaviour.</li>
     </ul>
   </section>

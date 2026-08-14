@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Models — Blackwellboy</title>
+<meta name="description" content="Models tested, deployed or used as controls in the Blackwellboy lab, with hardware, runtimes, test depth and public evidence.">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Blackwellboy">
+<meta property="og:title" content="Models — Blackwellboy">
+<meta property="og:description" content="A public model wall: deployments, full campaigns, targeted tests and controls, each scoped to the evidence that exists.">
+<meta property="og:url" content="https://blackwellboy.github.io/models.html">
+<meta property="og:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
+<meta property="og:image:width" content="1774">
+<meta property="og:image:height" content="887">
+<meta property="og:image:alt" content="Blackwellboy">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Blackwellboy">
+<meta name="twitter:title" content="Models — Blackwellboy">
+<meta name="twitter:description" content="Models tested, deployed or used as controls in the Blackwellboy lab, with public receipts.">
+<meta name="twitter:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
+<link rel="canonical" href="https://blackwellboy.github.io/models.html">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<nav class="nav" aria-label="Primary">
+  <div class="nav-in">
+    <a href="index.html" class="brand">BLACKWELLBOY</a>
+    <div class="nav-links">
+      <a href="work.html">Work</a>
+      <a href="models.html" aria-current="page">Models</a>
+      <a href="tools.html">Tools</a>
+      <a href="about.html">About</a>
+      <a href="corrections.html">Corrections</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="https://github.com/Blackwellboy" class="ext">GitHub</a>
+      <a href="https://x.com/Blackwellboy" class="ext x-link">X</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="page-head">
+    <p class="eyebrow">Blackwellboy / Models</p>
+    <h1>Models that have actually been through the lab.</h1>
+    <p class="lede">This is not a logo wall and it is not a leaderboard. The status on each card says how deep the public evidence goes: full deployment, full campaign, targeted test or control. If the evidence is narrower, the claim is narrower.</p>
+  </header>
+
+  <section id="deep-campaigns">
+    <h2>Deep campaigns &amp; deployments</h2>
+    <p class="sub">The models with the strongest public trail: bring-up work, repeatable measurements, long runs or dedicated repositories.</p>
+
+    <div class="model-grid">
+      <article class="model-card" id="kimi-k3">
+        <div class="model-top"><span class="badge">Deployment recipe</span><span class="model-size">~330 GB GGUF</span></div>
+        <h3>Kimi K3 Neuron</h3>
+        <p>Multi-Spark bring-up of the Neuron IQ1_S GGUF with SparkInfer. The public recipe documents working TP3 and TP4 paths, rank-local NVMe loading, NCCL fabric behaviour and the geometry behind the 3-Spark <span class="m">512/512/512</span> FFN split.</p>
+        <div class="receipt">
+          <span><b>Hardware</b> 3–4× DGX Spark</span>
+          <span><b>Runtime</b> SparkInfer</span>
+          <span><b>Focus</b> TP · GGUF · NCCL · serving</span>
+          <span><b>Public state</b> working e2e recipe snapshot</span>
+        </div>
+        <p class="evidence-links"><a href="https://github.com/Blackwellboy/kimi-k3-neuron-tp3-dgxspark-recipe">recipe</a> · <a href="work.html#kimi">featured work</a></p>
+      </article>
+
+      <article class="model-card" id="minimax-m3">
+        <div class="model-top"><span class="badge">Full deployment</span><span class="model-size">428B</span></div>
+        <h3>MiniMax-M3</h3>
+        <p>Full 428B model on two stock-driver DGX Sparks. The public lane work separates the b12x first-token failure from the KVarN paths that actually run, and measures code, structured, prose and deep-context behaviour rather than reporting one speed number.</p>
+        <div class="receipt">
+          <span><b>Hardware</b> 2× DGX Spark</span>
+          <span><b>Runtime</b> vLLM-derived</span>
+          <span><b>Format</b> W4A16 GPTQ + KVarN</span>
+          <span><b>Measured</b> 34.0 code · 41.1 structured · 25.5 prose tok/s</span>
+        </div>
+        <p class="evidence-links"><a href="https://github.com/Blackwellboy/MiniMax-M3-2x-DGX-Spark-stock-driver">recipe + findings</a> · <a href="work.html#minimax">featured work</a></p>
+      </article>
+
+      <article class="model-card" id="hy3-model">
+        <div class="model-top"><span class="badge">Full deployment</span><span class="model-size">295B MoE</span></div>
+        <h3>Hy3 / Hunyuan-3</h3>
+        <p>Dual-Spark NVFP4 serving with MTP, FP8 KV and structured tool calling. The campaign includes throughput, memory, cold-start and an accuracy slice instead of treating successful loading as proof that the quant is good.</p>
+        <div class="receipt">
+          <span><b>Hardware</b> 2× DGX Spark</span>
+          <span><b>Runtime</b> vLLM</span>
+          <span><b>Format</b> NVFP4 W4A16</span>
+          <span><b>Measured</b> 13.1 single · 36.9 six-way tok/s</span>
+        </div>
+        <p class="evidence-links"><a href="https://github.com/Blackwellboy/Hy3-295B-NVFP4-MTP-Dual-DGX-Spark">recipe + findings</a> · <a href="work.html#hy3">featured work</a></p>
+      </article>
+
+      <article class="model-card" id="deepseek-v4">
+        <div class="model-top"><span class="badge">Production-lane study</span><span class="model-size">DeepSeek V4 Flash</span></div>
+        <h3>DeepSeek V4-Flash</h3>
+        <p>A two-Spark production lane used to study speculative acceptance, long-context behaviour, cache effects, templates and reasoning round-trips. The public page explicitly separates the community-abliterated checkpoint from stock DeepSeek and records where the advertised window stops being useful.</p>
+        <div class="receipt">
+          <span><b>Hardware</b> 2× DGX Spark</span>
+          <span><b>Runtime</b> vLLM</span>
+          <span><b>Serving</b> TP2 · MTP · NVFP4 MLA KV</span>
+          <span><b>Soak</b> 10.20 h · 2,400/2,400 HTTP 200</span>
+        </div>
+        <p class="evidence-links"><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/models/deepseek-v4-flash.md">model study</a> · <a href="https://github.com/Blackwellboy/model-serving-minefield-evidence/blob/main/STUDY_INDEX.md">published soak evidence</a></p>
+      </article>
+
+      <article class="model-card" id="laguna">
+        <div class="model-top"><span class="badge">Full research campaign</span><span class="model-size">Laguna S 2.1</span></div>
+        <h3>Laguna S 2.1</h3>
+        <p>The deepest single-model research programme in the public repos: tuning sweep, 12-hour soak, reasoning-gate work, quant-floor comparisons, HumanEval+ replication, multi-turn history experiments, prompt-topology tests and cross-model controls.</p>
+        <div class="receipt">
+          <span><b>Hardware</b> DGX Spark</span>
+          <span><b>Runtimes</b> vLLM · llama.cpp comparison lanes</span>
+          <span><b>Formats</b> NVFP4 · FP8 · Q4_K_M · EXL3-tail</span>
+          <span><b>Evidence</b> raw study directories + corrections</span>
+        </div>
+        <p class="evidence-links"><a href="https://github.com/Blackwellboy/laguna-s21-lab">lab</a> · <a href="work.html#studies">selected studies</a></p>
+      </article>
+
+      <article class="model-card" id="nemotron-super">
+        <div class="model-top"><span class="badge">Long-duration campaign</span><span class="model-size">120B A12B</span></div>
+        <h3>NVIDIA Nemotron 3 Super</h3>
+        <p>A 13-hour single-Spark soak used to test stability, thinking-on/off behaviour, speculative counters and memory/acceptance claims over time. The public evidence keeps the limitations beside the result instead of turning the run into a general benchmark.</p>
+        <div class="receipt">
+          <span><b>Hardware</b> 1× DGX Spark</span>
+          <span><b>Runtime</b> vLLM 0.20.0</span>
+          <span><b>Format</b> NVFP4</span>
+          <span><b>Soak</b> 13.009 h · 2,045/2,045 HTTP 200</span>
+        </div>
+        <p class="evidence-links"><a href="https://github.com/Blackwellboy/model-serving-minefield-evidence/blob/main/STUDY_INDEX.md">study index</a> · <a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/models/README.md">model map</a></p>
+      </article>
+    </div>
+  </section>
+
+  <section id="targeted">
+    <h2>Targeted tests &amp; controls</h2>
+    <p class="sub">Useful first-hand evidence without pretending every model below received the same depth of campaign.</p>
+
+    <div class="compact-grid">
+      <article class="compact-card"><span class="badge quiet">Control + campaign</span><h3>Qwen 3.6 35B-A3B</h3><p>NVFP4 and bf16 lanes used for head-to-head quality, reasoning-gate controls, ceiling behaviour, MoE routing and harness checks.</p><p class="proof"><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/head-to-head">head-to-head</a> · <a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/models/README.md">model map</a></p></article>
+      <article class="compact-card"><span class="badge quiet">Targeted test</span><h3>Qwen 3.6 27B</h3><p>llama.cpp and NVFP4/dequant work around generation defaults, thinking controls, budget floors and quantisation fidelity.</p><p class="proof"><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/models/README.md">evidence map</a></p></article>
+      <article class="compact-card"><span class="badge quiet">Targeted test</span><h3>Qwen 3.5 9B</h3><p>GGUF / llama.cpp checks for generation-config defaults and model-family output-budget assumptions.</p><p class="proof"><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/models/README.md">evidence map</a></p></article>
+      <article class="compact-card"><span class="badge quiet">Targeted test</span><h3>Qwen 3 8B</h3><p>Ollama-on-GB10 campaign covering release assets, device logs, request-field validation, tool choice and out-of-range context handling.</p><p class="proof"><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/models/README.md">evidence map</a></p></article>
+      <article class="compact-card"><span class="badge quiet">Quant battery</span><h3>Ternary Bonsai 27B</h3><p>Apple-silicon quant-floor work comparing 1-bit and 2-bit ternary builds across a blinded 512-case aggregate battery plus performance and robustness tests.</p><p class="proof"><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/bonsai-battery">battery</a></p></article>
+      <article class="compact-card"><span class="badge quiet">Targeted test</span><h3>Muse Glimmer 30B</h3><p>llama.cpp + DFlash checks around reasoning control, tools, harness scoring and speculative-decode measurement on a 5090-class lane.</p><p class="proof"><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/mining/2026-08-11-muse-glimmer-30b-reasoning-control-and-stack.md">campaign note</a></p></article>
+      <article class="compact-card"><span class="badge quiet">Targeted test</span><h3>Nemotron 3 Nano 30B A3B</h3><p>Reasoning round-trip, parser packaging, MTP configuration, memory and serving-control checks across vLLM and contributor-measured SGLang evidence.</p><p class="proof"><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/models/README.md">evidence map</a></p></article>
+      <article class="compact-card"><span class="badge quiet">Targeted test</span><h3>Nemotron 3 Nano Omni</h3><p>Multimodal serving checks around reasoning toggles, history rendering, media fetches and multimodal token accounting.</p><p class="proof"><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/models/README.md">evidence map</a></p></article>
+      <article class="compact-card"><span class="badge quiet">Template campaign</span><h3>Mistral-family Q8_0 GGUF</h3><p>llama.cpp template and tool-roundtrip forensics: system relocation, baked defaults, final-turn branches and thinking-type validation.</p><p class="proof"><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/models/README.md">evidence map</a></p></article>
+    </div>
+  </section>
+
+  <section id="legend">
+    <h2>How to read the status</h2>
+    <div class="legend-grid">
+      <div><b>Full deployment</b><span>Dedicated bring-up work with a reproducible serving path and measured operating results.</span></div>
+      <div><b>Full research campaign</b><span>Multiple controlled studies or long-duration runs with public evidence.</span></div>
+      <div><b>Targeted test</b><span>A narrower question was measured directly; it is not presented as full model coverage.</span></div>
+      <div><b>Control</b><span>The model exists to bound another claim, which is often more valuable than another benchmark row.</span></div>
+    </div>
+    <p class="note">The full Minefield <a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/models/README.md">model map</a> also contains upstream reports and contributor evidence. Those are deliberately not relabelled here as my first-hand work.</p>
+  </section>
+</main>
+
+<footer>
+  <p>The model wall is curated from public evidence, not private campaign notes. A narrower public receipt gets a narrower status.</p>
+  <p>If something here does not check out, open an issue and it gets corrected in place, with a date.</p>
+</footer>
+
+</body>
+</html>
