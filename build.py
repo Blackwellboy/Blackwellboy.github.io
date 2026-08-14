@@ -319,45 +319,72 @@ def main():
     ap.add_argument("--registry", required=True)
     ap.add_argument("--template", default=os.path.join(HERE, "index.template.html"))
     ap.add_argument("--out", default=os.path.join(HERE, "index.html"))
+    ap.add_argument("--all", action="store_true",
+                    help="render every *.template.html to its *.html neighbor")
     ap.add_argument("--check", action="store_true",
                     help="exit 1 if the rendered output differs from --out")
     args = ap.parse_args()
 
-    template = read(args.template)
-    warnings = lint(template)
-    if warnings:
-        print("lint, not fatal:")
-        print("\n".join(warnings) + "\n")
+    def process_one(template_path, out_path):
+        template = read(template_path)
+        warnings = lint(template)
+        if warnings:
+            print("lint, not fatal:")
+            print("\n".join(warnings) + "\n")
 
-    out, values, unused = render(args.registry, template)
+        out, values, unused = render(args.registry, template)
 
-    print("derived from %s at %s:" % (os.path.basename(os.path.abspath(args.registry)),
-                                      values["REG_TIP"]))
-    for k in sorted(values):
-        if k.startswith("REG_TIP"):
-            continue
-        print("  %-20s %s" % (k, values[k]))
-    if unused:
-        print("  (derived but unused in the template: %s)" % ", ".join(unused))
+        print("derived from %s at %s:" % (os.path.basename(os.path.abspath(args.registry)),
+                                          values["REG_TIP"]))
+        for k in sorted(values):
+            if k.startswith("REG_TIP"):
+                continue
+            print("  %-20s %s" % (k, values[k]))
+        if unused:
+            print("  (derived but unused in the template: %s)" % ", ".join(unused))
 
-    existing = read(args.out) if os.path.exists(args.out) else None
+        existing = read(out_path) if os.path.exists(out_path) else None
+        if args.check:
+            if existing == out:
+                return True, out_path, False  # ok, no write
+            else:
+                print(f"\nSTALE: {os.path.basename(out_path)} does not match a fresh render.")
+                return False, out_path, False
+        else:
+            if existing == out:
+                print(f"\nunchanged: {os.path.basename(out_path)} already matches the registry.")
+                return True, out_path, False
+            with open(out_path, "w", encoding="utf-8", newline="\n") as fh:
+                fh.write(out)
+            print(f"\nwrote {out_path} ({len(out.encode())} bytes)")
+            return True, out_path, True
 
-    if args.check:
-        if existing == out:
-            print("\nPASS: index.html is up to date with the registry.")
+    if args.all:
+        templates = sorted(
+            f for f in os.listdir(HERE) if f.endswith(".template.html")
+        )
+        if not templates:
+            print("no *.template.html files found")
             return 0
-        print("\nSTALE: index.html does not match a fresh render.")
-        print("Run: python3 build.py --registry <path>")
-        return 1
-
-    if existing == out:
-        print("\nunchanged: index.html already matches the registry.")
+        ok_all = True
+        wrote_any = False
+        for t in templates:
+            out = os.path.join(HERE, t.replace(".template.html", ".html"))
+            ok, _, wrote = process_one(os.path.join(HERE, t), out)
+            ok_all = ok_all and ok
+            wrote_any = wrote_any or wrote
+        if args.check:
+            if ok_all:
+                print("\nPASS: all pages are up to date with the registry.")
+                return 0
+            print("Run: python3 build.py --registry <path> --all")
+            return 1
         return 0
-
-    with open(args.out, "w", encoding="utf-8", newline="\n") as fh:
-        fh.write(out)
-    print("\nwrote %s (%d bytes)" % (args.out, len(out.encode())))
-    return 0
+    else:
+        ok, _, _ = process_one(args.template, args.out)
+        if args.check and ok:
+            print("\nPASS: index.html is up to date with the registry.")
+        return 0
 
 
 if __name__ == "__main__":

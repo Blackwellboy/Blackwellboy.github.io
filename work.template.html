@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Work — Blackwellboy</title>
+<meta name="description" content="Selected Blackwellboy deployments, research studies, failure files and public recipes, with measured results and reproducible evidence.">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Blackwellboy">
+<meta property="og:title" content="Work — Blackwellboy">
+<meta property="og:description" content="Large-model deployments, controlled studies and failure analysis, with the conditions attached to every result.">
+<meta property="og:url" content="https://blackwellboy.github.io/work.html">
+<meta property="og:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
+<meta property="og:image:width" content="1774">
+<meta property="og:image:height" content="887">
+<meta property="og:image:alt" content="Blackwellboy">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Blackwellboy">
+<meta name="twitter:title" content="Work — Blackwellboy">
+<meta name="twitter:description" content="Large-model deployments, controlled studies and failure analysis, with public receipts.">
+<meta name="twitter:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
+<link rel="canonical" href="https://blackwellboy.github.io/work.html">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<nav class="nav" aria-label="Primary">
+  <div class="nav-in">
+    <a href="index.html" class="brand">BLACKWELLBOY</a>
+    <div class="nav-links">
+      <a href="work.html" aria-current="page">Work</a>
+      <a href="models.html">Models</a>
+      <a href="tools.html">Tools</a>
+      <a href="about.html">About</a>
+      <a href="corrections.html">Corrections</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="https://github.com/Blackwellboy" class="ext">GitHub</a>
+      <a href="https://x.com/Blackwellboy" class="ext x-link">X</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="page-head">
+    <p class="eyebrow">Blackwellboy / Work</p>
+    <h1>What held up, what failed, and how it was measured.</h1>
+    <p class="lede">The strongest public deployments and studies from the lab. Results come first; the exact lane, conditions and failure boundaries stay attached rather than being flattened into one benchmark table.</p>
+  </header>
+
+  <nav class="section-jump" aria-label="Work sections">
+    <a href="#deployments">Deployments</a>
+    <a href="#failure-files">Failure files</a>
+    <a href="#studies">Research</a>
+    <a href="#reproduce">Reproduce</a>
+  </nav>
+
+  <section id="deployments">
+    <h2>Featured deployments</h2>
+    <p class="sub">Large models where the interesting work is the system around the weights: topology, kernels, memory, speculative decoding, serving and the point where a nominally healthy lane actually fails.</p>
+
+    <div class="featured-grid">
+      <article class="card featured" id="kimi">
+        <div class="model-top"><span class="badge">3–4× DGX Spark</span><span class="model-size">Kimi K3 Neuron</span></div>
+        <h3><a href="https://github.com/Blackwellboy/kimi-k3-neuron-tp3-dgxspark-recipe">Kimi K3 — multi-Spark SparkInfer</a></h3>
+        <p>The public bring-up package documents the Neuron IQ1_S GGUF running end to end across three and four Sparks, including local-NVMe loading, NCCL fabric receipts and the TP geometry. The 3-Spark path uses <span class="m">512/512/512</span> FFN-width shards; the recipe also records why raw token-ID speed prompts are not quality tests.</p>
+        <div class="receipt"><span><b>Model</b> ~330 GB GGUF</span><span><b>Engine</b> SparkInfer</span><span><b>TP3</b> 6.21 tok/s best published window</span><span><b>Scope</b> public recipe snapshot</span></div>
+      </article>
+
+      <article class="card featured" id="minimax">
+        <div class="model-top"><span class="badge">2× DGX Spark</span><span class="model-size">428B</span></div>
+        <h3><a href="https://github.com/Blackwellboy/MiniMax-M3-2x-DGX-Spark-stock-driver">MiniMax-M3 — stock-driver lane</a></h3>
+        <p>The model loads on the tempting b12x path and even returns healthy API status, then the first real request kills the engine because the TMA attention kernel cannot JIT on the stock CUDA-13.0 driver. The working answer is a different lane, not driver surgery.</p>
+        <div class="receipt"><span><b>Standing lane</b> KVarN + EAGLE-3</span><span><b>Code</b> 34.0 tok/s</span><span><b>Structured</b> 41.1 tok/s</span><span><b>Deep run</b> 17.8 tok/s @ 113K</span></div>
+      </article>
+
+      <article class="card featured" id="hy3">
+        <div class="model-top"><span class="badge">2× DGX Spark</span><span class="model-size">295B MoE</span></div>
+        <h3><a href="https://github.com/Blackwellboy/Hy3-295B-NVFP4-MTP-Dual-DGX-Spark">Hy3 — NVFP4 + MTP</a></h3>
+        <p>Dual-Spark Hy3 serving with NVFP4 W4A16, native MTP, FP8 KV cache and structured tool calling. The campaign measures both speed and an accuracy slice, because a quant that serves quickly but damages the model is not a successful deployment.</p>
+        <div class="receipt"><span><b>Single</b> 13.1 tok/s</span><span><b>6-way</b> 36.9 tok/s</span><span><b>GSM8K slice</b> 98.7%</span><span><b>MMLU slice</b> 90/100</span></div>
+      </article>
+
+      <article class="card featured" id="deepseek">
+        <div class="model-top"><span class="badge">2× DGX Spark</span><span class="model-size">DeepSeek V4-Flash</span></div>
+        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/models/deepseek-v4-flash.md">DeepSeek V4-Flash — production-lane forensics</a></h3>
+        <p>A live TP2 lane became a systems study: MTP acceptance by task family, reasoning-field behaviour, cache effects and long-context retrieval. The server advertises a 1M window, but the checkpoint is trained to 65,536 and cold retrieval becomes unreliable rather than failing cleanly.</p>
+        <div class="receipt"><span><b>Serve</b> 1,048,576 max-model-len</span><span><b>Trained</b> 65,536</span><span><b>Soak</b> 10.20 h</span><span><b>Requests</b> 2,400/2,400 HTTP 200</span></div>
+      </article>
+    </div>
+    <p class="note">More model history lives on the <a href="models.html">Models</a> page. It separates full campaigns from targeted tests and control models so breadth does not get confused with depth.</p>
+  </section>
+
+  <section id="failure-files">
+    <h2>Failure files</h2>
+    <p class="sub">The failures are often more reusable than the headline speed number.</p>
+
+    <div class="failure-grid">
+      <article class="failure"><span class="failure-tag">Healthy until first token</span><h3>MiniMax b12x on stock GB10</h3><p>Weights load, KV allocates and <code>/health</code> returns 200. The first inference triggers a CUDA-13.2 TMA JIT path the stock 13.0 driver cannot build. A green health endpoint was not a serving proof.</p><a href="https://github.com/Blackwellboy/MiniMax-M3-2x-DGX-Spark-stock-driver#the-stock-driver-finding">Read the failure</a></article>
+      <article class="failure"><span class="failure-tag">Advertised context ≠ useful context</span><h3>DeepSeek's 1M window</h3><p>The server accepts the window and never raises an error, yet cold retrieval becomes unreliable from much shallower depths. Process survival and useful long-context behaviour are different claims.</p><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/models/deepseek-v4-flash.md">Read the model study</a></article>
+      <article class="failure"><span class="failure-tag">Benchmark confound</span><h3>The thinking-on gain disappeared</h3><p>A published HumanEval+ advantage used different sampling settings between the arms. Once the sampling was matched, the gain disappeared and the sign reversed.</p><a href="#humaneval">Read the replication</a></article>
+      <article class="failure"><span class="failure-tag">Client history bug</span><h3>The model did not simply “stop thinking”</h3><p>In the tested OpenAI-style path, prior assistant reasoning was not resent. The template rendered empty think blocks into history and the multi-turn gate collapsed. Preserving reasoning restored firing.</p><a href="#reasoning-stripping">Read the mechanism</a></article>
+      <article class="failure"><span class="failure-tag">More speculation ≠ more speed</span><h3>Speculative depth peaked and collapsed</h3><p>On the Laguna serving sweep, deeper speculative settings became slower. Draft depth is a verifier-economics problem, not a knob that monotonically buys throughput.</p><a href="#tuning-sweep">Read the sweep</a></article>
+    </div>
+  </section>
+
+  <section id="studies">
+    <h2>Selected research studies</h2>
+    <p class="sub">Controlled studies where the result mattered more than whether it agreed with the starting hypothesis.</p>
+
+    <div class="cards">
+      <div class="card" id="thinking-gate">
+        <p class="kicker">Reasoning behaviour</p>
+        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/gate-study">Thinking-gate study</a></h3>
+        <p>Thinking was not controlled by a flag or prompt length alone. A dense ten-rule persona block fired <span class="m">3/40</span>, while a much longer full agent prompt fired <span class="m">24/40</span>. Summarization fired <span class="m">0/105</span>; the same grid on Qwen 3.6 35B-A3B fired <span class="m">400/400</span>. The useful result is a prompt × task gate, not a simple dose-response story.</p>
+        <details class="evidence"><summary>Conditions &amp; reproducibility</summary><p class="cond">400 grid turns, 10 conditions by 4 task types, n=10 per cell, 450 turns logged including parser and criteria phases, 0 HTTP errors, single-turn. Laguna S 2.1 NVFP4 rev 0761412 under vLLM 0.25.1 on one DGX Spark GB10. These are within-run cells on this build and do not generalise across quants or runtimes.</p></details>
+      </div>
+
+      <div class="card" id="humaneval">
+        <p class="kicker">Benchmark replication</p>
+        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/pr10-replication">HumanEval+ replication</a></h3>
+        <p>A published “thinking-on wins” result had the two arms running different sampling settings. With sampling matched, the gain disappeared and the sign reversed: ON <span class="m">89.84</span>, OFF <span class="m">90.85</span>. Thinking-on was steadier across seeds, but cost roughly ten times the wall clock: <span class="m">200.2 s</span> mean per problem versus <span class="m">18.5 s</span>.</p>
+        <details class="evidence"><summary>Conditions &amp; reproducibility</summary><p class="cond">984 requests, 164 problems by 2 arms by 3 seeds, arms interleaved, identical sampling both arms at temperature 0.7 / top_p 0.95 / top_k 20, max_tokens 12,288, 0 transport errors, evalplus 0.3.1. NVFP4 rev 0761412 under vLLM 0.25.1 on one GB10.</p></details>
+      </div>
+
+      <div class="card" id="reasoning-stripping">
+        <p class="kicker">Multi-turn serving</p>
+        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/context-mass">Multi-turn reasoning-stripping</a></h3>
+        <p>In the OpenAI-style client path tested, prior assistant reasoning was not resent. The template then rendered earlier assistant turns with empty think blocks and the model stopped firing its reasoning gate. Identical transcripts fired <span class="m">10/10</span> with reasoning preserved and <span class="m">0/10</span> stripped at both depths tested.</p>
+        <details class="evidence"><summary>Conditions &amp; reproducibility</summary><p class="cond">Depth 10 and depth 20 conversations, identical transcripts both arms, max_tokens 4096. Measured on the 0xSero 3.25bpw EXL3 hybrid lane. This is a mechanism result for the tested client/template path, not a claim that every OpenAI-compatible client strips reasoning.</p></details>
+      </div>
+
+      <div class="card" id="identity-prefix">
+        <p class="kicker">Hypothesis test</p>
+        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/identity-prefix">Identity-prefix study</a></h3>
+        <p>This was run expecting to confirm a community hypothesis that long system prompts suppress thinking by displacing the trained identity. It failed the direct test: moving identity to the literal first line took firing from <span class="m">5/40</span> to <span class="m">0/40</span>. Neutral and topical filler reopened the gate by similar amounts, pointing away from identity itself.</p>
+        <details class="evidence"><summary>Conditions &amp; reproducibility</summary><p class="cond">n=40 per cell, arms interleaved within each run, two builds. NVFP4 bare 2/40 against identity 17/40, neutral filler 10/40, topical filler 11/40. The 3.25bpw hybrid bare 0/40 against 13/40, 14/40, 10/40. Qwen 3.6 35B-A3B null control fired 480/480.</p></details>
+      </div>
+
+      <div class="card" id="tuning-sweep">
+        <p class="kicker">Performance tuning</p>
+        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/sweep">20-cell tuning sweep</a></h3>
+        <p>Speculative depth beyond K=7 made this model slower at every concurrency level tested. The single-stream winner reached <span class="m">26.2 tok/s</span> median and <span class="m">61.65 tok/s</span> aggregate at concurrency 4. The grid’s best aggregate was a different cell: K=6 with max-num-seqs 8 at <span class="m">62.26 tok/s</span>.</p>
+        <details class="evidence"><summary>Conditions &amp; reproducibility</summary><p class="cond">20 cells, K 5 to 9 by max-num-seqs 4 to 32, single run per cell. NVFP4 rev 0761412 under vLLM 0.25.1 on one GB10, Hermes bench v1 short subset. Every losing cell is published.</p></details>
+      </div>
+
+      <div class="card" id="soak">
+        <p class="kicker">Production stability</p>
+        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/soak">12-hour production soak</a></h3>
+        <p><span class="m">3,096</span> HTTP-200 turns across <span class="m">409</span> sessions, with zero crashes and zero restarts, inside a real agent pipeline. Thinking fired on only <span class="m">3</span> turns despite being requested every turn; the later reasoning-stripping study explains that anomaly.</p>
+        <details class="evidence"><summary>Conditions, correction &amp; reproducibility</summary><p class="cond">One 12-hour run, production profile K=7 and max-num-seqs=32, max_tokens 8192. 3,099 rows logged; 3,096 returned HTTP 200. Correction 2026-07-25: 409 sessions = 400 completed + 9 killed at the driver token cap; the three extra lines are integrity probes and all returned HTTP 200.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section id="reproduce">
+    <h2>Reproduce the deployment work</h2>
+    <p class="sub">The website tells the story; GitHub holds the runnable detail.</p>
+    <div class="repo-strip">
+      <a href="https://github.com/Blackwellboy/kimi-k3-neuron-tp3-dgxspark-recipe"><b>Kimi K3</b><span>SparkInfer · 3/4 Sparks · GGUF TP</span></a>
+      <a href="https://github.com/Blackwellboy/Hy3-295B-NVFP4-MTP-Dual-DGX-Spark"><b>Hy3-295B</b><span>vLLM · 2 Sparks · NVFP4 + MTP</span></a>
+      <a href="https://github.com/Blackwellboy/MiniMax-M3-2x-DGX-Spark-stock-driver"><b>MiniMax-M3</b><span>2 Sparks · stock driver · KVarN + EAGLE-3</span></a>
+      <a href="https://github.com/Blackwellboy/laguna-s21-lab"><b>Laguna lab</b><span>studies · harnesses · raw evidence</span></a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Headline numbers on this page are fixed-run measurements. Their lanes and conditions stay attached; they are not universal model-speed claims.</p>
+  <p>If something here does not check out, open an issue and it gets corrected in place, with a date.</p>
+</footer>
+
+</body>
+</html>

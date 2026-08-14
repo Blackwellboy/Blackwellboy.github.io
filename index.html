@@ -3,13 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blackwellboy - independent testing and deployment engineering for local AI models</title>
-<meta name="description" content="Independent verification, serving diagnosis and measurement auditing for local AI models. Findings published with their conditions and their raw data, including the ones that were refuted.">
+<title>Blackwellboy — independent AI systems testing and deployment engineering</title>
+<meta name="description" content="Independent AI systems testing, model-serving diagnosis and multi-node deployment engineering. Reproducible measurements, raw data, public corrections and deployment recipes from real hardware.">
 <meta name="color-scheme" content="dark">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Blackwellboy">
 <meta property="og:title" content="Blackwellboy">
-<meta property="og:description" content="Independent verification, serving diagnosis and measurement auditing for local AI models. Findings published with their conditions and their raw data.">
+<meta property="og:description" content="Independent AI systems testing and deployment engineering, with reproducible measurements, raw data and public corrections.">
 <meta property="og:url" content="https://blackwellboy.github.io/">
 <meta property="og:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
 <meta property="og:image:width" content="1774">
@@ -18,260 +18,26 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@Blackwellboy">
 <meta name="twitter:title" content="Blackwellboy">
-<meta name="twitter:description" content="Independent verification, serving diagnosis and measurement auditing for local AI models.">
+<meta name="twitter:description" content="Independent AI systems testing and deployment engineering, with reproducible measurements and raw data.">
 <meta name="twitter:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
 <link rel="canonical" href="https://blackwellboy.github.io/">
-<style>
-/* ------------------------------------------------------------------
-   GENERATED FILE. Edit index.template.html, not index.html.
-   Numbers describing the registry are substituted at build time by
-   build.py from a checked-out registry tree.
-
-   Contrast ratios below are MEASURED against --ground. If you change a
-   colour, recompute and update the comment. Nothing a reader parses as
-   a sentence sits below 12:1.
-   ------------------------------------------------------------------ */
-:root {
-  --ground:      #07080b;
-  --raise:       #0d0f13;   /*  1.09:1  card ground, barely lifted     */
-  --ink:         #f4f5f7;   /* 18.36:1  headings, card titles          */
-  --body:        #dde1e5;   /* 15.24:1  all running prose              */
-  --muted:       #c3cad1;   /* 12.10:1  conditions, labels, footer     */
-  --sodium:      #f0a92e;   /*  9.94:1  measured values only           */
-  --sodium-deep: #c8861a;   /*  6.56:1  underlines and condition bars  */
-  --rule:        #1b1f24;
-  --rule-lit:    #2b3038;
-
-  /* Neon sampled from the wordmark in the masthead: pure white core,
-     halo measurably cool at every radius, falling off fast to r=20 then
-     trailing to about r=50. Static, never animated. */
-  --neon:
-    0 0 2px  rgba(255, 255, 255, .95),
-    0 0 9px  rgba(226, 236, 255, .42),
-    0 0 24px rgba(198, 216, 255, .22),
-    0 0 52px rgba(170, 198, 255, .12);
-
-  --serif: Charter, "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
-  --mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
-
-  --s1: .25rem; --s2: .5rem;  --s3: .75rem; --s4: 1rem;
-  --s5: 1.5rem; --s6: 2rem;   --s7: 3rem;   --s8: 4rem;  --s9: 5.5rem;
-
-  --shell: 44rem;
-  --pad: 1.5rem;
-  --navh: 3.25rem;
-}
-
-*, *::before, *::after { box-sizing: border-box; }
-html {
-  background: var(--ground);
-  -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--navh) + 1rem);
-}
-@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-body {
-  margin: 0;
-  background: var(--ground);
-  color: var(--body);
-  font-family: var(--serif);
-  font-size: 1.125rem;
-  line-height: 1.65;
-  font-synthesis-weight: none;
-  -webkit-font-smoothing: antialiased;
-  overflow-wrap: break-word;
-}
-
-a {
-  color: inherit;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: .18em;
-  text-decoration-color: var(--sodium-deep);
-}
-a:hover { color: var(--sodium); text-decoration-color: var(--sodium); }
-a:focus-visible {
-  outline: 2px solid var(--sodium);
-  outline-offset: 3px;
-  border-radius: 2px;
-  text-decoration: none;
-}
-
-/* --- nav ------------------------------------------------------------ */
-.nav {
-  position: sticky; top: 0; z-index: 10;
-  background: rgba(7, 8, 11, .94);
-  border-bottom: 1px solid var(--rule);
-  backdrop-filter: saturate(140%) blur(8px);
-}
-.nav-in {
-  max-width: var(--shell); margin: 0 auto; padding: 0 var(--pad);
-  height: var(--navh);
-  display: flex; align-items: center; gap: var(--s5);
-  overflow-x: auto; scrollbar-width: none;
-}
-.nav-in::-webkit-scrollbar { display: none; }
-.nav a {
-  font-family: var(--mono); font-size: .875rem; letter-spacing: .04em;
-  color: #d3d9de;              /* 14.07:1 */
-  text-decoration: none; white-space: nowrap;
-  display: flex; align-items: center; min-height: 44px;
-  border-bottom: 2px solid transparent;
-}
-.nav a:hover { color: var(--sodium); border-bottom-color: var(--sodium-deep); }
-.nav .brand { font-weight: 600; color: var(--ink); letter-spacing: .1em; margin-right: auto; }
-.nav .ext { color: var(--muted); }
-
-/* --- masthead ------------------------------------------------------- */
-.plate {
-  display: block; width: 100%; height: auto;
-  max-width: var(--shell); margin: 0 auto;
-  aspect-ratio: 1774 / 887;   /* reserves space, no layout shift */
-}
-
-main { max-width: var(--shell); margin: 0 auto; padding: 0 var(--pad) var(--s8); }
-main > section { margin-top: var(--s8); }
-
-.hero { margin-top: var(--s5); }
-h1 {
-  margin: 0; font-weight: 400;
-  font-size: clamp(1.5rem, 1.13rem + 1.6vw, 1.9rem);
-  line-height: 1.24; letter-spacing: -.011em;
-  color: var(--ink); text-wrap: balance;
-}
-.lede { margin: var(--s4) 0 0; font-size: 1.0625rem; color: var(--body); max-width: 60ch; }
-
-.stats {
-  margin-top: var(--s6);
-  display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 1px; background: var(--rule); border: 1px solid var(--rule);
-}
-.stat { background: var(--ground); padding: var(--s4); }
-.stat b {
-  display: block; font-family: var(--mono);
-  font-size: 1.5rem; font-weight: 500; line-height: 1.1;
-  color: var(--sodium); font-variant-numeric: tabular-nums;
-}
-.stat span {
-  display: block; margin-top: var(--s2);
-  font-family: var(--mono); font-size: .8125rem; line-height: 1.45; color: var(--muted);
-}
-.counted-at {
-  margin-top: var(--s3);
-  font-family: var(--mono); font-size: .8125rem; line-height: 1.6;
-  color: var(--muted); max-width: none;
-}
-.counted-at code { font-family: var(--mono); font-size: .95em; color: var(--body); white-space: nowrap; }
-
-/* --- section headings ----------------------------------------------- */
-section > h2 {
-  margin: 0 0 var(--s5); padding-bottom: .9rem;
-  border-bottom: 1px solid var(--rule-lit);
-  font-family: var(--mono);
-  /* floor kept above the 1.1875rem card titles so tiers never collapse */
-  font-size: clamp(1.375rem, 1.15rem + .95vw, 1.5625rem);
-  font-weight: 500; line-height: 1.25;
-  text-transform: uppercase; letter-spacing: .1em;
-  color: #fff; text-shadow: var(--neon);
-}
-.sub {
-  margin: calc(var(--s5) * -1 + var(--s1)) 0 var(--s5);
-  font-size: 1.0625rem; color: var(--body); max-width: 64ch;
-}
-
-p { margin: 0; max-width: 66ch; }
-p + p { margin-top: var(--s4); }
-h3.sh {
-  margin: var(--s6) 0 var(--s3);
-  font-family: var(--mono); font-size: 1.1875rem; font-weight: 500;
-  line-height: 1.3; color: var(--ink);
-}
-
-.card h3, .cap h3 {
-  margin: 0 0 var(--s3);
-  font-family: var(--mono); font-size: 1.1875rem; font-weight: 500;
-  line-height: 1.3; letter-spacing: -.005em; color: var(--ink);
-}
-
-.cards { display: grid; gap: var(--s4); }
-.card {
-  background: var(--raise); border: 1px solid var(--rule);
-  border-left: 2px solid var(--sodium-deep); padding: var(--s5);
-}
-/* :not(.cond) so this can never out-specify the conditions rule below.
-   Without it, .card p (0,1,1) beats .cond (0,1,0) and the conditions
-   silently render at body size. That has happened twice. */
-.card p:not(.cond) { font-size: 1.0625rem; }
-
-.m {
-  font-family: var(--mono); font-weight: 500; font-size: .94em;
-  font-variant-numeric: tabular-nums; color: var(--sodium); white-space: nowrap;
-}
-
-.cond {
-  margin-top: var(--s4); padding-top: var(--s3);
-  border-top: 1px solid var(--rule-lit);
-  font-family: var(--mono); font-size: .875rem; line-height: 1.6;
-  color: var(--muted); font-variant-numeric: tabular-nums;
-}
-.cond b {
-  display: block; font-weight: 500; color: #e8ebee;
-  letter-spacing: .06em; text-transform: uppercase;
-  font-size: .78rem; margin-bottom: var(--s1);
-}
-
-.caps { display: grid; gap: var(--s5); }
-.cap p { font-size: 1.0625rem; }
-.proof { margin-top: var(--s2); font-family: var(--mono); font-size: .8125rem; color: var(--muted); }
-
-.plain { margin: 0; padding: 0; list-style: none; display: grid; gap: var(--s4); }
-.plain > li { padding-left: var(--s4); border-left: 2px solid var(--rule-lit); max-width: 66ch; }
-.plain > li > b { color: var(--ink); font-weight: 600; }
-
-.links { display: grid; grid-template-columns: 1fr; }
-.links a {
-  padding: var(--s3) 0; border-bottom: 1px solid var(--rule);
-  font-family: var(--mono); font-size: .9375rem;
-  text-decoration: none; color: var(--body); min-height: 44px;
-  display: flex; align-items: center;
-}
-.links a:hover { color: var(--sodium); }
-.links .host { color: var(--muted); margin-left: .4em; }
-
-footer {
-  max-width: var(--shell); margin: 0 auto;
-  padding: var(--s6) var(--pad) var(--s8);
-  border-top: 1px solid var(--rule);
-  font-family: var(--mono); font-size: .8125rem; line-height: 1.65; color: var(--muted);
-}
-footer p { max-width: 64ch; }
-footer p + p { margin-top: var(--s3); }
-
-@media (min-width: 44em) {
-  body { font-size: 1.1875rem; }
-  main { padding-bottom: var(--s9); }
-  .stats { grid-template-columns: repeat(4, 1fr); }
-  .links { grid-template-columns: 1fr 1fr; column-gap: var(--s6); }
-}
-
-@media (prefers-contrast: more) {
-  :root { --muted: var(--body); --rule: var(--rule-lit); --sodium-deep: var(--sodium); }
-}
-</style>
+<link rel="stylesheet" href="site.css">
 </head>
 <body>
 
 <nav class="nav" aria-label="Primary">
   <div class="nav-in">
-    <a href="#top" class="brand">BLACKWELLBOY</a>
-    <a href="#about">About</a>
-    <a href="#work">Work</a>
-    <a href="#corrections">Corrections</a>
-    <a href="#tools">Tools</a>
-    <a href="#available">Available for</a>
-    <a href="#contact">Contact</a>
-    <a href="https://github.com/Blackwellboy" class="ext">GitHub</a>
-    <a href="https://x.com/Blackwellboy" class="ext">X</a>
+    <a href="index.html" class="brand" aria-current="page">BLACKWELLBOY</a>
+    <div class="nav-links">
+      <a href="work.html">Work</a>
+      <a href="models.html">Models</a>
+      <a href="tools.html">Tools</a>
+      <a href="about.html">About</a>
+      <a href="corrections.html">Corrections</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="https://github.com/Blackwellboy" class="ext">GitHub</a>
+      <a href="https://x.com/Blackwellboy" class="ext x-link">X</a>
+    </div>
   </div>
 </nav>
 
@@ -283,8 +49,9 @@ footer p + p { margin-top: var(--s3); }
 <main>
 
   <div class="hero">
-    <h1>Independent testing and deployment engineering for local AI models.</h1>
-    <p class="lede">I measure what serving stacks actually do, publish the answer with its conditions and its raw data, and publish the results that went against me as loudly as the ones that did not.</p>
+    <h1>Independent AI systems testing and deployment engineering.</h1>
+    <p class="lede">I test model-serving stacks on real hardware, publish the conditions and raw data, and keep the failures, reversals and corrections visible alongside the wins.</p>
+    <p>My background is hands-on data-centre deployment — B200/B300-class GPU systems, fibre, commissioning and maintenance — and I bring the same discipline to the multi-node model-serving work in my own lab.</p>
 
     <div class="stats">
       <div class="stat"><b>116</b><span>serving traps documented</span></div>
@@ -292,192 +59,58 @@ footer p + p { margin-top: var(--s3); }
       <div class="stat"><b>12</b><span>outside contributors credited</span></div>
       <div class="stat"><b>5</b><span>serving stacks measured here</span></div>
     </div>
-    <p class="counted-at">Every figure in that block is generated from the registry tree at build time, not typed in. Read at <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/0297b6377505e95f4339fd48fdc1b9f5402530ab"><code>0297b63</code></a>, 2026-08-12. <code>find traps -mindepth 2 -name '*.md' | wc -l</code> reproduces the first one.</p>
+    <p class="counted-at">Registry counts are generated from <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/0297b6377505e95f4339fd48fdc1b9f5402530ab">model-serving-minefield at <code>0297b63</code></a>, 2026-08-12 — not typed into this page by hand.</p>
   </div>
-
-  <section id="about">
-    <h2>About</h2>
-
-    <p>I work in data centres on B200 and B300 class deployments: cabling and installation, commissioning and testing, then maintenance. Fibre splicing and fibre engineering. Racking the hardware, running and terminating the fibre, bringing it up and keeping it up, at scale.</p>
-
-    <p>I run the same class of work on my own cluster, which is why the raw data goes up with the conclusions instead of being described second-hand.</p>
-
-    <h3 class="sh">The fleet</h3>
-    <p>A networked cluster of DGX Sparks running tensor-parallel pairs, alongside a multi-GPU workstation stack and Apple silicon, with enough aggregate memory to keep several large models resident at once.</p>
-
-    <p>The mix is the instrument rather than the inventory. A fault that reproduces on one architecture and not another is only visible if you have both, and several published findings turn on exactly that. The name of the field a model streams its reasoning into is a property of the serving stack rather than of the model, which took four stacks disagreeing to establish. One entry in the registry is a negative: a cache-isolation flag that behaves as documented on one build and does not on two others, recorded with the same care as a positive, because the conditions are the finding.</p>
-
-    <h3 class="sh">Serving stacks</h3>
-    <p>Measured first-hand on llama.cpp, MLX, Ollama, sglang and vLLM. 11 stack pages exist in total; the rest are stacks I have not measured, and each page says so in its own first line. Build and quant formats across those lanes include NVFP4, FP8, GGUF at several quantisation levels, and EXL3-tail builds. Model families include Laguna S 2.1, Qwen 3.5 and 3.6, DeepSeek V4, Gemma, MiniMax and a Mistral-family GGUF. Stacks I have not measured are marked as such in the registry rather than inferred.</p>
-  </section>
-
-  <section id="work">
-    <h2>Selected work</h2>
-    <p class="sub">Six studies. Every figure below is re-derived from the raw data published in the linked directory, and every card states the build and the box it ran on.</p>
-
-    <div class="cards">
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/gate-study">Thinking-gate study</a></h3>
-        <p>Whether this model thinks is decided by the system prompt and the task together, not by the thinking flag. A dense ten-rule persona block dropped firing to <span class="m">3/40</span>, against <span class="m">24/40</span> for a far longer full agent prompt: the gate is non-monotonic in prompt length, which superseded the earlier dose-response reading with a two-axis one. Summarization never fired once in <span class="m">105</span> attempts. The same grid on Qwen 3.6 35B-A3B fired <span class="m">400/400</span>.</p>
-        <p class="cond"><b>Conditions</b>400 grid turns, 10 conditions by 4 task types, n=10 per cell, 450 turns logged including the parser and criteria phases, 0 HTTP errors, single-turn. Laguna S 2.1 NVFP4 rev 0761412 under vLLM 0.25.1 on one DGX Spark GB10. These are within-run n=40 cells on this build and do not generalise across quants or runtimes: at n=492 on llama.cpp with a Q2_K_XL build, apollo-mg measured firing at 445/492 under a comparable apparatus.</p>
-      </div>
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/pr10-replication">HumanEval+ replication</a></h3>
-        <p>A published claim that thinking-on wins at code generation had been measured with the two arms running at different sampling settings. Re-run with sampling identical on both arms, the gain disappears and the sign reverses: ON <span class="m">89.84</span> against OFF <span class="m">90.85</span>. What does survive is that thinking-on is the steadier arm across seeds, <span class="m">11</span> intermittently-passing problems against <span class="m">17</span>, and that it costs roughly ten times the wall clock, <span class="m">200.2 s</span> mean per problem against <span class="m">18.5 s</span>.</p>
-        <p class="cond"><b>Conditions</b>984 requests, 164 problems by 2 arms by 3 seeds, arms interleaved in submission order, identical sampling both arms at temperature 0.7 / top_p 0.95 / top_k 20, max_tokens 12,288, 0 transport errors, evalplus 0.3.1 scoring. NVFP4 rev 0761412 under vLLM 0.25.1 on one GB10.</p>
-      </div>
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/context-mass">Multi-turn reasoning-stripping</a></h3>
-        <p>Standard OpenAI-style clients do not send prior-turn reasoning back, so the chat template renders every earlier turn as an empty think block and the model quietly stops thinking from turn two onward. Identical transcripts fired <span class="m">10/10</span> with reasoning preserved and <span class="m">0/10</span> stripped, at both depths tested. Several independent testers, myself included, had put this down to the model. The fix is to resend reasoning on assistant history messages.</p>
-        <p class="cond"><b>Conditions</b>Depth 10 and depth 20 conversations, identical transcripts both arms, max_tokens 4096. Measured on the 0xSero 3.25bpw EXL3 hybrid lane. Confirmation on the NVFP4 production lane is still open and is listed as open in the study.</p>
-      </div>
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/identity-prefix">Identity-prefix study</a></h3>
-        <p>Testing somebody else's hypothesis, expecting to confirm it. A community wire-level report proposed that long system prompts suppress thinking by evicting the model's trained identity from the front of the prompt. Put to a direct test it fails: moving the identity to the literal first line took firing from <span class="m">5/40</span> down to <span class="m">0/40</span>, the wrong direction. The controls found a real effect at the tail instead, and it is not about identity at all, because any token-matched filler reopens the gate by about the same amount.</p>
-        <p class="cond"><b>Conditions</b>n=40 per cell, arms interleaved within each run, two builds. NVFP4 bare 2/40 against identity 17/40, neutral filler 10/40, topical filler 11/40. The 3.25bpw hybrid bare 0/40 against 13/40, 14/40, 10/40. Qwen 3.6 35B-A3B null control fired 480/480.</p>
-      </div>
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/sweep">20-cell tuning sweep</a></h3>
-        <p>Raising speculative depth past K=7 made the model slower, not faster, at every concurrency level tested. The winning cell reached <span class="m">26.2 tok/s</span> single-stream median and <span class="m">61.65 tok/s</span> aggregate at concurrency 4. Every losing cell is published.</p>
-        <p class="cond"><b>Conditions</b>20 cells, K 5 to 9 by max-num-seqs 4 to 32, single run per cell. NVFP4 rev 0761412 under vLLM 0.25.1 on one GB10, Hermes bench v1 short subset, TTFT 322 ms at the winner. Not the grid's best aggregate: K=6 with max-num-seqs 8 reached 62.26.</p>
-      </div>
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/soak">12-hour production soak</a></h3>
-        <p><span class="m">3,096</span> HTTP-200 turns across <span class="m">409</span> sessions with zero crashes and zero restarts, inside a real agent pipeline rather than a benchmark loop. Thinking fired on <span class="m">3</span> of those turns on a run that requested it every single turn, which is the anomaly the reasoning-stripping study above explains. Twelve hours is the published sample, not a ceiling.</p>
-        <p class="cond"><b>Conditions</b>One 12-hour run, production profile K=7 and max-num-seqs=32, max_tokens 8192, thinking requested on every turn. 3,099 turns logged, 3,096 returned HTTP 200. NVFP4 rev 0761412 under vLLM 0.25.1 on one GB10. Carried in TheTom's offlabel guide as external validation. The per-turn log is published, at lab tip <code>a009a7f</code>: 3,099 rows, structure preserving, with the model-generated free-text previews stripped because they carried internal identifiers and the structural counters left intact. It carries 410 distinct session ids against 409 completed sessions, because three rows have a null HTTP status, which is the run being cut mid-session rather than a missing session.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <section id="corrections">
-    <h2>What I got wrong</h2>
-    <p class="sub">A result you cannot check is worth nothing, and the fastest way to show the checking is real is to show it catching me. This section is not an apology, it is the evidence that the rest of the page is load-bearing.</p>
-
-    <ul class="plain">
-      <li><b>I retracted my own headline finding within days of publishing it.</b> The gate study reported median thinking tokens of 3,536 on a bare prompt against 282 under the heaviest agent prompt, and I read that as prompt dose shortening reasoning. A dedicated 200-turn grid running all five arms interleaved inside one session found depth among fired turns statistically flat, all pairwise p at or above 0.13, with the arm carrying tool schemas holding the highest median. The medians were real measurements; the causal reading was a cross-run artefact. What actually moves depth is task composition and truncation at the tool-call boundary. Retracted in place, with dates, in <a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/c7-depth-collapse">c7-depth-collapse</a>.</li>
-
-      <li><b>I published a refutation of a hypothesis I expected to confirm.</b> The identity-prefix study above was run to verify a community finding, and it came out against it. It shipped with the losing cells intact.</li>
-
-      <li><b>I narrowed my own strongest-sounding claim after somebody else's larger sample.</b> "The binary thinking gate is Laguna's own behaviour" is now scoped to the builds I measured, because apollo-mg ran the same model on a different quant and runtime at n=492 and saw no gate closure. His number bounds mine, and it sits inside the card it constrains rather than in a footnote.</li>
-
-      <li><b>Losing cells, blocked items and not-testable items are published.</b> All 20 sweep cells including the 19 that lost, and a <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/mining">mining area</a> holding 25 write-ups of candidates that did not reproduce, could not be tested, or are specification only. Several carry confirm and refute criteria written down before the run, so the result cannot be reinterpreted afterwards.</li>
-
-      <li><b>Corrections are posted upstream too, including to my own work.</b> When a reader found that I had stated a reasoning field name as a property of the model when it is a property of the serving stack, the correction went into the lab repo, the registry entry and the upstream thread, dated, with the counterexamples named.</li>
-    </ul>
-  </section>
-
-  <section id="tools">
-    <h2>Tools</h2>
-    <p class="sub">General-purpose, not tied to any one model.</p>
-
-    <div class="cards">
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield">model-serving-minefield</a></h3>
-        <p>A registry of serving and config bugs that produce confidently wrong measurements. <span class="m">116</span> entries across <span class="m">9</span> categories: evaluation, memory, quantization, reasoning, routing, runtime, template, tools, versioning. Each entry leads with the symptom you would actually observe, then the mechanism, the check that catches it, and the fix, and each is marked reproduced-here, reported-by-others, or under test.</p>
-      </div>
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/CORE.md">The Core 12</a></h3>
-        <p>Reading 116 entries is nobody's plan for the evening. The Core tier is the 12 chosen on evidence of what has actually cost people time: the symptom looks like a property of the model, the check is cheap, and it has already bitten more than one person or more than one stack. Everything else is marked Extended, which means specific rather than lesser.</p>
-      </div>
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/playbooks">Playbooks and stack pages</a></h3>
-        <p>7 ordered checklists for the job you actually arrived with, rather than the symptom you can name: publishing an A/B, thinking dying on turn two, porting a harness to a new server, long context looking broken, reading a soak. Every step names the entry it guards against and the check to run. Alongside them, <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/stacks">11 stack pages</a> covering hf-transformers, llama.cpp, lm-studio, MLX, Ollama, sglang, tabbyapi, tensorrt-llm, text-generation-inference, text-generation-webui and vLLM, each listing the entries that bite hardest there and the three checks to run first.</p>
-      </div>
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/doctor">minefield-doctor</a></h3>
-        <p>One stdlib-only Python file. Point it at your OpenAI-compatible endpoint and it runs <span class="m">19</span> read-only checks in under a minute. Its own README is blunt about the limits: read it as a thinking-stack preflight rather than a doctor, because those checks cluster on reasoning fields, templates, thinking control, tool parsing and ceilings, and say nothing about quantisation kernel paths, container toolchains, memory, MoE routing, harness confounds or long context. A clean run is not a clean bill of health, and anything it could not check is reported as not checked, with the reason.</p>
-      </div>
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/checks">preflight_template.py</a></h3>
-        <p>Template forensics for the question every request-shaped check misses: what does the model actually receive at turn N? It renders a marked three-turn conversation through your own serving path and reports whether what you sent survived the round trip. If you only run one check, run this one.</p>
-      </div>
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/integrity">The integrity layer</a></h3>
-        <p>The registry checks itself, and this page is one of the surfaces it checks. A claim ledger records every retracted or corrected finding together with the distinctive phrasings to search for, and a propagation checker fails the build when any surface still carries a superseded claim without its correction attached. Every check is exercised by a mutation test that reintroduces the exact failure it was built for, and the whole set runs in CI on every push.</p>
-      </div>
-
-      <div class="card">
-        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/blob/main/LAGUNA_OPERATORS_GUIDE.md">Laguna S 2.1 operators guide</a></h3>
-        <p>A worked example rather than a general tool: the same method run end to end on one model, covering serving config, thinking control, tool format and quantization floor. Every claim links the study directory holding its raw data and every figure carries its conditions.</p>
-      </div>
-    </div>
-  </section>
-
-  <section id="uptake">
-    <h2>Independent uptake</h2>
-    <p class="sub">Things other people did with this work. Stated narrowly, because every one is checkable.</p>
-
-    <ul class="plain">
-      <li><b>The operators guide was cited as a conformance reference by a project on a stack I have never touched.</b> In <a href="https://github.com/youssofal/MTPLX/pull/195">youssofal/MTPLX PR 195</a>, the lab is named as the operator guide the checkpoint is documented against, and the guide's own tool-format check did not pass on that MLX stack until a parser dialect bug was fixed. I was not mentioned and made no approach. Credit to davidtai, who also found a scoping error in my own work and reported it.</li>
-
-      <li><b>Outside contributors supply entries directly.</b> 12 are credited in the <a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/HALL_OF_FAME.md">hall of fame</a> for findings or targets they supplied themselves, including a thirteen-entry contribution measured on the contributor's own hardware and a serving target supplied specifically to give the registry a fourth stack. A further 15 people are credited separately as the original reporters of findings mined from public trackers, marked as reported rather than reproduced here.</li>
-
-      <li><b>Two pull requests merged upstream, and findings cross-cited both ways.</b> The 12-hour soak is carried in <a href="https://github.com/TheTom/offlabel">TheTom's offlabel</a> guide as external validation, and the thinking-gate grid is the basis of its rebuilt firing-gate section, replacing an earlier composite drawn from three different stacks.</li>
-
-      <li><b>An external contributor's finding confirmed first-hand on different hardware.</b> The multi-turn reasoning-stripping mechanism was independently reported on llama.cpp and reproduced here on a different quant and runtime, which is what separated model behaviour from stack behaviour.</li>
-    </ul>
-  </section>
 
   <section id="available">
     <h2>Available for</h2>
-    <p class="sub">What I take on. Where a study on this page demonstrates it, it is linked.</p>
+    <p class="sub">Independent testing, diagnosis and deployment work where the answer needs evidence rather than a guess.</p>
 
     <div class="caps">
       <div class="cap">
         <h3>Independent claim verification</h3>
-        <p>Testing a vendor or community claim under controlled conditions, with the raw published whichever way it lands.</p>
-        <p class="proof">Shown by the <a href="#work">HumanEval+ replication</a> and the <a href="#work">identity-prefix study</a>, both of which came out against the claim under test.</p>
+        <p>Testing a vendor or community claim under controlled conditions, with the raw data published whichever way it lands.</p>
+        <p class="proof">Evidence: <a href="work.html#humaneval">HumanEval+ replication</a> · <a href="work.html#identity-prefix">identity-prefix study</a></p>
       </div>
 
       <div class="cap">
         <h3>Serving and deployment diagnosis</h3>
-        <p>Working out why a model looks broken when the model is fine, which is usually a template, a parser or a history-handling problem rather than a weights problem.</p>
-        <p class="proof">Shown by <a href="#work">multi-turn reasoning-stripping</a> and the <a href="#tools">registry</a> it fed.</p>
+        <p>Working out why a model looks broken when the model is fine — often a template, parser, history or serving-stack problem rather than a weights problem.</p>
+        <p class="proof">Evidence: <a href="work.html#reasoning-stripping">multi-turn reasoning-stripping</a> · <a href="tools.html">model-serving-minefield</a></p>
       </div>
 
       <div class="cap">
         <h3>Quantization verification</h3>
-        <p>Taking a third-party quant and establishing whether it holds: that it builds and serves, what it costs in memory, and whether quality survives against the build you were already running.</p>
-        <p class="proof">Shown by the <a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/quant-floor">quant-floor study</a>, which put a two-tier 3.25bpw expert quant against the NVFP4 build on the same harness. The kernel-path half of this is registry entry <a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/traps/quantization/10-quant-label-is-not-the-kernel-path.md">10, the quant label is not the kernel path</a>.</p>
+        <p>Establishing whether a third-party quant actually holds: does it build and serve, what does it cost in memory, and does quality survive against the control build?</p>
+        <p class="proof">Evidence: <a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/quant-floor">quant-floor study</a> · <a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/traps/quantization/10-quant-label-is-not-the-kernel-path.md">quant label ≠ kernel path</a></p>
       </div>
 
       <div class="cap">
         <h3>Long-duration production soaks</h3>
-        <p>Running a model inside a real agent pipeline for as long as the question needs, and reporting drift, incidents and integrity behaviour rather than a throughput number.</p>
-        <p class="proof">Written up: the <a href="#work">12-hour soak</a>.</p>
+        <p>Running a model inside a real agent pipeline for as long as the question needs, and reporting drift, incidents and integrity behaviour rather than a single throughput number.</p>
+        <p class="proof">Evidence: <a href="work.html#soak">12-hour production soak</a></p>
       </div>
 
       <div class="cap">
         <h3>Multi-node and tensor-parallel deployment</h3>
-        <p>Bringing up and running models across networked nodes as tensor-parallel pairs: the fabric underneath, the topology, the serving config on top of it, and the failure modes that only appear once a model spans more than one box.</p>
+        <p>Bringing up models across networked nodes: fabric, topology, serving configuration and the failure modes that only appear once a model spans more than one box.</p>
+        <p class="proof">Evidence: <a href="work.html#hy3">Hy3 on dual DGX Spark</a> · <a href="work.html#minimax">MiniMax-M3 on dual DGX Spark</a></p>
       </div>
 
       <div class="cap">
         <h3>Eval-harness and measurement auditing</h3>
-        <p>Auditing a benchmark before you trust it: arm-level handicaps, scorer normalisation, contamination screens, and harnesses that quietly score a correct answer as wrong.</p>
-        <p class="proof">Shown by the evaluation category of the <a href="#tools">registry</a> and by the <a href="#work">HumanEval+ replication</a>, where the original confound was a sampling difference between arms.</p>
+        <p>Auditing a benchmark before trusting it: arm-level handicaps, scorer normalisation, contamination screens and harnesses that quietly score a correct answer as wrong.</p>
+        <p class="proof">Evidence: <a href="work.html#humaneval">HumanEval+ replication</a> · <a href="tools.html">Minefield evaluation checks</a></p>
       </div>
     </div>
 
-    <h3 class="sh">What a first pass looks like</h3>
-    <p>Run <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/doctor">minefield-doctor</a> against your endpoint with <code>--report</code> and send me the output, along with the number that looks wrong and how you measured it. That output is a paste-ready block naming what passed, what failed and what could not be checked, so the first useful artifact exists before either of us has spent an hour on it.</p>
+    <h3 class="sh">A useful first pass</h3>
+    <p>If you are debugging an OpenAI-compatible endpoint, start with <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/doctor">minefield-doctor</a> and send me the report together with the number or behaviour that looks wrong. That gives us evidence before we start changing things.</p>
   </section>
 
   <section id="contact">
     <h2>Contact</h2>
-    <p>Email or a direct message on X, whichever suits. Either way, say what stack you are on and which number looks wrong: that one line makes the first reply useful instead of a round of questions. If the finding is something the registry should carry, an <a href="https://github.com/Blackwellboy/model-serving-minefield/issues/new/choose">issue on the registry</a> is the public path, and contributions are credited by default.</p>
+    <p>Email or DM me on X. Include the stack you are using and the number or behaviour that looks wrong; that usually makes the first reply useful. If the finding belongs in the registry, open a <a href="https://github.com/Blackwellboy/model-serving-minefield/issues/new/choose">model-serving-minefield issue</a> so the evidence and credit stay public.</p>
 
     <div class="links" style="margin-top:var(--s5)">
       <a href="mailto:theaaronhughes@gmail.com">Email <span class="host">theaaronhughes@gmail.com</span></a>
@@ -493,9 +126,8 @@ footer p + p { margin-top: var(--s3); }
 </main>
 
 <footer>
-  <p>The counts on this page are generated from the registry tree at build time, so they cannot go stale without the build going stale with them. The study figures are not generated: each is a measurement from one run at one revision, and each carries its conditions instead.</p>
-  <p>Every study figure is re-derived from raw data published in the linked directory. The soak's per-turn log was withdrawn for a day on sanitizer grounds and is published again as of lab tip <code>a009a7f</code>, scrubbed of free-text previews and intact in its counters, so there is no longer an exception to name.</p>
-  <p>If a number here does not check out, open an issue on either repo and it gets fixed in place, with a date.</p>
+  <p>Live repository facts are generated from source. Fixed-run measurements keep the exact conditions that produced them.</p>
+  <p>If something here does not check out, open an issue and it gets corrected in place, with a date.</p>
 </footer>
 
 </body>

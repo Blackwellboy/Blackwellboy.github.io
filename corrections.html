@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Corrections — Blackwellboy</title>
+<meta name="description" content="Corrections, retractions and narrowed claims from Blackwellboy research, kept public with the evidence that changed them.">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Blackwellboy">
+<meta property="og:title" content="Corrections — Blackwellboy">
+<meta property="og:description" content="Corrections, retractions and narrowed claims, kept public with the evidence that changed them.">
+<meta property="og:url" content="https://blackwellboy.github.io/corrections.html">
+<meta property="og:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
+<meta property="og:image:width" content="1774">
+<meta property="og:image:height" content="887">
+<meta property="og:image:alt" content="Blackwellboy">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Blackwellboy">
+<meta name="twitter:title" content="Corrections — Blackwellboy">
+<meta name="twitter:description" content="Corrections, retractions and narrowed claims, kept public with the evidence that changed them.">
+<meta name="twitter:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
+<link rel="canonical" href="https://blackwellboy.github.io/corrections.html">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<nav class="nav" aria-label="Primary">
+  <div class="nav-in">
+    <a href="index.html" class="brand">BLACKWELLBOY</a>
+    <div class="nav-links">
+      <a href="work.html">Work</a>
+      <a href="models.html">Models</a>
+      <a href="tools.html">Tools</a>
+      <a href="about.html">About</a>
+      <a href="corrections.html" aria-current="page">Corrections</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="https://github.com/Blackwellboy" class="ext">GitHub</a>
+      <a href="https://x.com/Blackwellboy" class="ext x-link">X</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="page-head">
+    <p class="eyebrow">Blackwellboy / Corrections</p>
+    <h1>The result matters more than being right the first time.</h1>
+    <p class="lede">A research site that only shows the wins is not very useful. This is where claims get retracted, narrowed or corrected, with the evidence that changed them left visible.</p>
+  </header>
+
+  <section id="corrections">
+    <h2>What changed</h2>
+    <div class="cards">
+      <div class="card">
+        <p class="kicker">Retracted causal interpretation</p>
+        <h3>Prompt dose did not explain reasoning depth</h3>
+        <p>The original gate study measured median thinking depth of 3,536 tokens on a bare prompt and 282 under the heaviest agent prompt, and I interpreted that as prompt dose shortening reasoning. A dedicated 200-turn interleaved grid found depth among fired turns statistically flat, with all pairwise p-values at or above 0.13. The medians were real; the causal reading was not.</p>
+        <p class="proof">Corrected in place in <a href="https://github.com/Blackwellboy/laguna-s21-lab/tree/main/c7-depth-collapse">c7-depth-collapse</a>. The revised explanation is task composition plus truncation at the tool-call boundary.</p>
+      </div>
+
+      <div class="card">
+        <p class="kicker">Hypothesis refuted</p>
+        <h3>The identity-prefix theory failed its direct test</h3>
+        <p>I ran the identity-prefix study expecting to confirm a community hypothesis. Moving the identity to the literal first line made the measured effect worse, not better. The losing cells stayed in the published result.</p>
+        <p class="proof">See the <a href="work.html#identity-prefix">identity-prefix study</a>.</p>
+      </div>
+
+      <div class="card">
+        <p class="kicker">Claim narrowed</p>
+        <h3>A larger external sample bounded my Laguna claim</h3>
+        <p>I had described the binary thinking gate too broadly. Apollo-mg ran the same model on a different quant and runtime at n=492 and saw no gate closure, so the claim is now scoped to the builds and serving paths actually measured here.</p>
+      </div>
+
+      <div class="card">
+        <p class="kicker">Negative evidence kept</p>
+        <h3>Losing, blocked and not-testable results stay visible</h3>
+        <p>All 20 tuning-sweep cells are published, including the 19 that did not win. The <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/mining">Minefield mining area</a> currently holds 25 write-ups for candidates that did not reproduce, could not be tested, or remain specification-only. Several had confirm/refute criteria written before the run.</p>
+      </div>
+
+      <div class="card">
+        <p class="kicker">Propagation</p>
+        <h3>Corrections have to reach every surface carrying the claim</h3>
+        <p>When a reader caught a reasoning-field name being described as a property of the model rather than the serving stack, the correction went into the lab repo, the registry entry and the upstream thread. The Minefield integrity layer now checks for superseded phrasing across public surfaces.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Live repository facts are generated from source. Fixed-run measurements keep the exact conditions that produced them.</p>
+  <p>If something here does not check out, open an issue and it gets corrected in place, with a date.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tools — Blackwellboy</title>
+<meta name="description" content="Blackwellboy tools for model-serving diagnosis, endpoint preflight, prompt/template forensics, reproduction and research integrity.">
+<meta name="color-scheme" content="dark">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Blackwellboy">
+<meta property="og:title" content="Tools — Blackwellboy">
+<meta property="og:description" content="A practical model-serving toolbox: diagnose the endpoint, inspect the prompt path, reproduce the lane and verify the claim.">
+<meta property="og:url" content="https://blackwellboy.github.io/tools.html">
+<meta property="og:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
+<meta property="og:image:width" content="1774">
+<meta property="og:image:height" content="887">
+<meta property="og:image:alt" content="Blackwellboy">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@Blackwellboy">
+<meta name="twitter:title" content="Tools — Blackwellboy">
+<meta name="twitter:description" content="Diagnose, reproduce and verify model-serving failures before blaming the model.">
+<meta name="twitter:image" content="https://blackwellboy.github.io/blackwellboy.jpg">
+<link rel="canonical" href="https://blackwellboy.github.io/tools.html">
+<link rel="stylesheet" href="site.css">
+</head>
+<body>
+
+<nav class="nav" aria-label="Primary">
+  <div class="nav-in">
+    <a href="index.html" class="brand">BLACKWELLBOY</a>
+    <div class="nav-links">
+      <a href="work.html">Work</a>
+      <a href="models.html">Models</a>
+      <a href="tools.html" aria-current="page">Tools</a>
+      <a href="about.html">About</a>
+      <a href="corrections.html">Corrections</a>
+      <a href="index.html#contact">Contact</a>
+      <a href="https://github.com/Blackwellboy" class="ext">GitHub</a>
+      <a href="https://x.com/Blackwellboy" class="ext x-link">X</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <header class="page-head">
+    <p class="eyebrow">Blackwellboy / Tools</p>
+    <h1>Checks to run before blaming the model.</h1>
+    <p class="lede">The toolbox follows the order I actually debug in: establish whether the endpoint is sane, inspect what the model received, check the stack-specific traps, then reproduce the lane before changing bigger things.</p>
+  </header>
+
+  <section id="workflow">
+    <h2>Start with this path</h2>
+    <p class="sub">Four steps that turn “the model looks wrong” into a falsifiable problem.</p>
+    <div class="workflow">
+      <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/doctor"><span>01</span><b>Run Doctor</b><small>Fast read-only endpoint preflight</small></a>
+      <a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/checks/preflight_template.py"><span>02</span><b>Render the prompt</b><small>See what reaches the model at turn N</small></a>
+      <a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/stacks"><span>03</span><b>Check your stack</b><small>Run the stack-specific shortlist</small></a>
+      <a href="https://github.com/Blackwellboy/model-serving-minefield"><span>04</span><b>Search Minefield</b><small>Match symptom → mechanism → check → fix</small></a>
+    </div>
+  </section>
+
+  <section id="diagnose">
+    <h2>Diagnose</h2>
+    <div class="cards">
+      <div class="card">
+        <p class="kicker">Registry</p>
+        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield">model-serving-minefield</a></h3>
+        <p>A registry of serving and configuration failures that can make a healthy model look broken or make a bad measurement look convincing. It currently contains <span class="m">116</span> entries across <span class="m">9</span> categories: evaluation, memory, quantization, reasoning, routing, runtime, template, tools, versioning.</p>
+        <p class="proof">Every entry starts with the symptom, then the mechanism, the cheapest useful check and the fix. Evidence status is explicit.</p>
+      </div>
+
+      <div class="card">
+        <p class="kicker">Fastest triage</p>
+        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/CORE.md">The Core 12</a></h3>
+        <p>The short list for when you do not yet know whether the failure lives in the model, template, runtime, quant, harness or client. These are cheap to test and easy to misread as model behaviour.</p>
+      </div>
+
+      <div class="card">
+        <p class="kicker">Endpoint preflight</p>
+        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/doctor">minefield-doctor</a></h3>
+        <p>A stdlib-only OpenAI-compatible endpoint preflight with <span class="m">19</span> read-only checks around reasoning fields, templates, thinking control, tool parsing and output ceilings. Anything it cannot test is reported as not checked.</p>
+      </div>
+
+      <div class="card">
+        <p class="kicker">Prompt path</p>
+        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/checks/preflight_template.py">preflight_template.py</a></h3>
+        <p>Renders a marked multi-turn conversation through your own path so you can inspect the actual prompt at turn N. This catches history stripping, role mutations and template branches that an ordinary API smoke test cannot see.</p>
+      </div>
+
+      <div class="card">
+        <p class="kicker">Model lookup</p>
+        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/blob/main/models/README.md">Traps by model</a></h3>
+        <p>A model-family map that links the traps observed on each tested or reported checkpoint. It also says when evidence is upstream or contributor-supplied so absence from the table never becomes a fake safety claim.</p>
+      </div>
+
+      <div class="card">
+        <p class="kicker">Stack lookup</p>
+        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/stacks">Stack pages</a></h3>
+        <p><span class="m">11</span> stack pages covering hf-transformers, llama.cpp, lm-studio, MLX, Ollama, sglang, tabbyapi, tensorrt-llm, text-generation-inference, text-generation-webui and vLLM. Each page gives the traps most likely to bite there and the checks to run first.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="reproduce-operate">
+    <h2>Reproduce &amp; operate</h2>
+    <p class="sub">When the diagnosis is no longer enough and you need a known-good lane or an ordered procedure.</p>
+    <div class="cards">
+      <div class="card">
+        <p class="kicker">Operational playbooks</p>
+        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/playbooks">Minefield playbooks</a></h3>
+        <p><span class="m">7</span> ordered playbooks for jobs such as publishing an A/B, debugging reasoning loss, porting a harness, investigating long context and reading a soak. They turn the registry into procedures rather than a list of bugs.</p>
+      </div>
+      <div class="card">
+        <p class="kicker">Deployment recipes</p>
+        <h3><a href="work.html#reproduce">Large-model bring-up repos</a></h3>
+        <p>Kimi K3 on SparkInfer, Hy3-295B on dual Spark, MiniMax-M3 on the stock driver, plus the Laguna lab. These are the public runnable surfaces behind the deployment cards on <a href="work.html">Work</a>.</p>
+      </div>
+      <div class="card">
+        <p class="kicker">Worked example</p>
+        <h3><a href="https://github.com/Blackwellboy/laguna-s21-lab/blob/main/LAGUNA_OPERATORS_GUIDE.md">Laguna S 2.1 operators guide</a></h3>
+        <p>A model-specific worked example of the method end to end: serving configuration, thinking control, tool format, quantisation floor and verification checks, with every claim linked to the study directory that supports it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="verify">
+    <h2>Verify the research</h2>
+    <p class="sub">The tools that keep a result from becoming a story that drifts away from its evidence.</p>
+    <div class="cards">
+      <div class="card">
+        <p class="kicker">Self-checking claims</p>
+        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield/tree/main/integrity">Minefield integrity layer</a></h3>
+        <p>A claim ledger records corrections and retractions. Propagation checks search public surfaces for superseded wording, while mutation tests deliberately reintroduce known failures to prove the checks can still catch them.</p>
+      </div>
+      <div class="card">
+        <p class="kicker">Published raw evidence</p>
+        <h3><a href="https://github.com/Blackwellboy/model-serving-minefield-evidence">model-serving-minefield-evidence</a></h3>
+        <p>Public scrubbed evidence bundles for studies where publishing the full raw material is appropriate, including long-soak manifests and immutable study indexes. Sensitive prose is hashed or redacted rather than quietly omitted.</p>
+      </div>
+      <div class="card">
+        <p class="kicker">Corrections</p>
+        <h3><a href="corrections.html">What changed</a></h3>
+        <p>The public correction surface for claims that were retracted, narrowed or re-scoped after better evidence arrived. The correction is part of the research artifact, not an embarrassing footnote.</p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p>Use the smallest tool that can falsify your current explanation. A clean endpoint preflight does not prove the whole serving stack is clean.</p>
+  <p>If something here does not check out, open an issue and it gets corrected in place, with a date.</p>
+</footer>
+
+</body>
+</html>
