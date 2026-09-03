@@ -220,10 +220,12 @@ def upstream_reporters(reg):
 
 
 def open_questions(reg):
-    """mining/ entries that record a question with its disposition."""
-    d = os.path.join(reg, "mining")
-    return str(len([f for f in os.listdir(d)
-                    if f.endswith(".md") and f.lower() != "readme.md"]))
+    """Open public questions from the governance surface, never private mining."""
+    t = read(os.path.join(reg, "registry", "OPEN_TRAP_ISSUES.md"))
+    m = re.search(r"^## OPEN\s*$\n(.*?)(?=^##\s|\Z)", t, re.M | re.S)
+    if m is None:
+        raise ValueError("registry/OPEN_TRAP_ISSUES.md has no '## OPEN' section")
+    return str(len(re.findall(r"^### Q\d+\.", m.group(1), re.M)))
 
 
 def tip(reg):
