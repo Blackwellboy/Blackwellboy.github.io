@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   sync:
-    if: github.event.head_commit.message != 'build: sync hosted Minefield preview'
+    if: "${{ github.event.head_commit.message != 'build: sync hosted Minefield preview' }}"
     runs-on: ubuntu-latest
     steps:
       - name: Check out site branch
