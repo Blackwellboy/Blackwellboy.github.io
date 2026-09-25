@@ -101,16 +101,34 @@ jobs:
             exit 1
           fi
 
+      - name: On a PR, verify the hosted Minefield bundle matches registry web/
+        if: github.event_name == 'pull_request'
+        run: |
+          for f in index.html app.js styles.css registry-data.js; do
+            if ! cmp -s "minefield/$f" "${{ runner.temp }}/registry/web/$f"; then
+              echo "::error::minefield/$f is stale against model-serving-minefield/web/$f"
+              exit 1
+            fi
+          done
+
       - name: Render pages from templates and the registry tree
         if: github.event_name != 'pull_request'
         run: python3 build.py --registry "${{ runner.temp }}/registry" --all
 
+      - name: Sync the searchable Minefield web bundle
+        if: github.event_name != 'pull_request'
+        run: |
+          mkdir -p minefield
+          for f in index.html app.js styles.css registry-data.js; do
+            cp "${{ runner.temp }}/registry/web/$f" "minefield/$f"
+          done
+
       - name: Commit only if rendered bytes actually changed
         if: github.event_name != 'pull_request'
         run: |
-          CHANGED_HTML="$(git status --porcelain -- '*.html' | awk '{print $2}')"
-          if [ -z "$CHANGED_HTML" ]; then
-            echo "All generated pages already match the registry; nothing to commit."
+          CHANGED_FILES="$(git status --porcelain -- '*.html' 'minefield/app.js' 'minefield/styles.css' 'minefield/registry-data.js' | awk '{print $2}')"
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "All generated pages and the hosted Minefield bundle already match the registry; nothing to commit."
             exit 0
           fi
           REG_TIP="$(git -C "${{ runner.temp }}/registry" rev-parse --short HEAD)"
@@ -118,6 +136,6 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           # explicit path, never `git add -A`: a CRLF conversion has produced
           # phantom diffs on files nobody edited in this repo before.
-          git add $CHANGED_HTML
-          git commit -m "build: regenerate from registry ${REG_TIP}"
+          git add $CHANGED_FILES
+          git commit -m "build: regenerate site and Minefield from registry ${REG_TIP}"
           git push
