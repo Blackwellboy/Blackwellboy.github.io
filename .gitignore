@@ -1,3 +1,33 @@
 # CI checks the registry out here to count it. It is never committed
 # and never served: Pages deploys from its own fresh checkout.
 _registry/
+
+# keep weights, caches and secrets out of Git
+*.safetensors
+*.gguf
+*.pt
+*.pth
+*.ckpt
+*.onnx
+*.exl3
+*.bin
+.cache/
+hf_cache/
+huggingface/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+*.kdbx
+.netrc
+.npmrc
+hosts.yml
+*auth-profiles*.json
+*credentials*.json
+*cookies*.txt
+*cookies*.json
